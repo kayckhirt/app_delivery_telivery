@@ -1,10 +1,12 @@
 const express = require('express');
+const cors = require('cors');
 const usersRoute = require('../routes/users.routes');
 // const productsRoutes = require('../routes/products.routes');
 // const salesRoutes = require('../routes/sales.routes');
 const errorMiddleware = require('../middlewars/error.middleware');
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 app.use(usersRoute);

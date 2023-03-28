@@ -4,8 +4,7 @@
 
 const login = async (req, res, next) => {
   try {
-  // const { email, password } = req.body; 
-return res.status(200).json({});
+return res.status(200).json(req.body);
   } catch (err) {
      next(err);
   }

@@ -3,7 +3,7 @@ const { decodeJWT } = require('../auth/jwt.auth');
 const UsersService = require('../services/users.service');
 
 module.exports = async (req, _res, next) => {
-   const { authorization: token } = req.headers;
+   const { Authorization: token } = req.headers;
    try {
      if (!token) throw CustomError('401', 'Token not found');
     const decode = decodeJWT(token);

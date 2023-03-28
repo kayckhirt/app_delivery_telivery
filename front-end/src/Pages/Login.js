@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import AppContext from '../Context/AppContext';
 
 function Login() {
+  const { teste } = useContext(AppContext);
   return (
-    <div>Login</div>
+    <div>{teste}</div>
   );
 }
 export default Login;
