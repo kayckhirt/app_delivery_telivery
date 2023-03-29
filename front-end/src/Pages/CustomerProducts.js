@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Loading from '../Components/Loading';
+import NavBar from '../Components/NavBar';
 import ProductCard from '../Components/ProductCard';
 
 import api from '../services/api';
@@ -27,6 +28,7 @@ function CustomerProducts() {
 
   return (
     <>
+      <NavBar />
       <h3>CustomerProducts</h3>
       {products.map(({ id, price, image, title }) => (
         <ProductCard
