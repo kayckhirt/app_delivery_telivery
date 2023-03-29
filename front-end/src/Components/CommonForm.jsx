@@ -2,19 +2,15 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 function CommonForm({
+  onInputChange,
+  formData: { email, password, name },
   isLogin,
   isNotFound,
-  handleChangeEmail,
-  handleChangePassword,
-  handleChangeName,
   handleLoginButton,
-  email,
-  password,
   btnIsDisabled,
-  name,
   history,
 }) {
-  const common = 'common_login__';
+  const common = isLogin ? 'common_login__' : 'common_register__';
   return (
     <>
       <form>
@@ -22,12 +18,13 @@ function CommonForm({
           <label htmlFor="name">
             Nome :
             <input
+              name="name"
               data-testid={ `${common}input-name` }
               id="name"
               type="name"
               placeholder="Nome..."
               value={ name }
-              onChange={ handleChangeName }
+              onChange={ onInputChange }
             />
           </label>
         )}
@@ -36,10 +33,11 @@ function CommonForm({
           <input
             data-testid={ `${common}input-email` }
             id="email"
+            name="email"
             type="email"
             placeholder="email@email.com"
             value={ email }
-            onChange={ handleChangeEmail }
+            onChange={ onInputChange }
           />
         </label>
         <label htmlFor="password">
@@ -47,10 +45,11 @@ function CommonForm({
           <input
             data-testid={ `${common}input-password` }
             id="password"
+            name="password"
             type="password"
             placeholder="********"
             value={ password }
-            onChange={ handleChangePassword }
+            onChange={ onInputChange }
           />
         </label>
         {isLogin && (
