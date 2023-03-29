@@ -13,7 +13,6 @@ function Login() {
     const emailAndPassword = verifyEmail && verifyPassword;
     setBtnIsDisabled(!(emailAndPassword));
   }, [email, password]);
-  
   useEffect(() => {
     verifyBtn();
   }, [email, password, btnIsDisabled, verifyBtn]);
@@ -26,7 +25,6 @@ function Login() {
     setPassword(target.value);
   });
 
-
   return (
     <div>
       <h1>NOMEDOAPP</h1>
@@ -38,8 +36,8 @@ function Login() {
             id="email"
             type="email"
             placeholder="email@email.com"
-            value={email}
-            onChange={handleChangeEmail}
+            value={ email }
+            onChange={ handleChangeEmail }
           />
         </label>
         <label htmlFor="password">
@@ -49,14 +47,14 @@ function Login() {
             id="password"
             type="password"
             placeholder="********"
-            value={password}
-            onChange={handleChangePassword}
+            value={ password }
+            onChange={ handleChangePassword }
           />
         </label>
         <button
           data-testid="common_login__button-login"
           type="button"
-          disabled={btnIsDisabled}
+          disabled={ btnIsDisabled }
         >
           Login
         </button>
@@ -68,9 +66,11 @@ function Login() {
         </button>
       </form>
       <div
-      data-testid="common_login__element-invalid-email"
-      ></div>
+        data-testid="common_login__element-invalid-email"
+      >
+        elemento oculto
       </div>
-      );
+    </div>
+  );
 }
-      export default Login;
+export default Login;
