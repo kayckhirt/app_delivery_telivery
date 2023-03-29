@@ -1,24 +1,29 @@
-// const salesService = require('../services/sales.service');
+const salesService = require('../services/sales.service');
 
-// const { CustomError } = require('../errors/custom.error');
+const { CustomError } = require('../errors/custom.error');
 
-// const getById = async (req, res, next) => {
-//   try {
-//     return res.status(200).json();
-//   } catch (err) {
-//     next(err);
-//   }
-// };
+const getAll = async (_req, res, next) => {
+  try {
+    const result = await salesService.getAll();
+    if (!result) throw CustomError('404', 'notFound');
+    return res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+};
 
-// const getAll = async (_req, res, next) => {
-//   try {
-//     return res.status(200).json();
-//   } catch (err) {
-//     next(err);
-//   }
-// };
+const getById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const result = await salesService.getById(id);
+    if (!result) throw CustomError('404', 'notFound');
+    return res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+};
 
 module.exports = {
-  // getById,
-  // getAll,
+  getAll,
+  getById,
 };

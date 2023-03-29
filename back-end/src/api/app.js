@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const usersRoute = require('../routes/users.routes');
-// const productsRoutes = require('../routes/products.routes');
+const productsRoutes = require('../routes/products.routes');
 // const salesRoutes = require('../routes/sales.routes');
 const errorMiddleware = require('../middlewars/error.middleware');
 
@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use(usersRoute);
-// app.use(productsRoutes);
+app.use(productsRoutes);
 // app.use(salesRoutes);
 
 app.use(errorMiddleware);
