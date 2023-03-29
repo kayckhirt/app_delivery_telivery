@@ -1,24 +1,25 @@
-// const productsService = require('../services/products.service');
+const productsService = require('../services/products.service');
 
 // const { CustomError } = require('../errors/custom.error');
 
-// const getById = async (req, res, next) => {
-//   try {
-//     return res.status(200).json();
-//   } catch (err) {
-//     next(err);
-//   }
-// };
+const getById = async (req, res, next) => {
+  try {
+    return res.status(200).json();
+  } catch (err) {
+    next(err);
+  }
+};
 
-// const getAll = async (_req, res, next) => {
-//   try {
-//     return res.status(200).json();
-//   } catch (err) {
-//     next(err);
-//   }
-// };
+const getAll = async (_req, res, next) => {
+  try {
+    const products = await productsService.getAll();
+    return res.status(200).json({ products });
+  } catch (err) {
+    next(err);
+  }
+};
 
 module.exports = {
-  // getById,
-  // getAll,
+  getById,
+  getAll,
 };
