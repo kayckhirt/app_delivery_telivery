@@ -7,7 +7,7 @@ module.exports = async (req, _res, next) => {
    try {
      if (!token) throw CustomError('401', 'Token not found');
     const decode = decodeJWT(token);
-
+ 
     if (!decode) { throw CustomError('401', 'Expired or invalid token'); }
 
     const user = await UsersService.getByUserId(decode.payload.user.id);
