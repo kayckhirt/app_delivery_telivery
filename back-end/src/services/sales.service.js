@@ -1,11 +1,11 @@
-// const { Sale } = require('../database/models');
+const { Sale } = require('../database/models');
 // const { CustomError } = require('../errors/custom.error');
 
-const getById = async () => {};
+const getAll = async () => Sale.findAll();
+
+const getById = async (saleId) => Sale.findByPk(saleId);
 
 const create = async () => {};
-
-const getAll = async () => {};
 
 module.exports = {
   getById,

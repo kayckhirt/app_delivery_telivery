@@ -1,10 +1,10 @@
-// const salesService = require('../services/sales.service');
+const salesService = require('../services/sales.service');
 
 const { CustomError } = require('../errors/custom.error');
 
 const getAll = async (_req, res, next) => {
   try {
-    const result = await getAll();
+    const result = await salesService.getAll();
     if (!result) throw CustomError('404', 'notFound');
     return res.status(200).json(result);
   } catch (err) {
@@ -15,7 +15,7 @@ const getAll = async (_req, res, next) => {
 const getById = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const result = await getById(id);
+    const result = await salesService.getById(id);
     if (!result) throw CustomError('404', 'notFound');
     return res.status(200).json(result);
   } catch (err) {
