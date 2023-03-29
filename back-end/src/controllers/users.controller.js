@@ -1,10 +1,12 @@
-// const usersService = require('../services/users.service');
+const usersService = require('../services/users.service');
 
 // const { CustomError } = require('../errors/custom.error');
 
 const login = async (req, res, next) => {
   try {
-return res.status(200).json(req.body);
+    const { email, password } = req.body;
+    const token = await usersService.getByEmail(email, password);
+    return res.status(200).json({ token });
   } catch (err) {
      next(err);
   }
