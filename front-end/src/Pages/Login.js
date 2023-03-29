@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import CommonForm from '../Components/CommonForm';
+import api from '../services/api';
+import { saveToken } from '../utils/localStorage';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [btnIsDisabled, setBtnIsDisabled] = useState(true);
   const [isLogin, setisLogin] = useState(true);
+  const [isNotFound, setIsNotFound] = useState(false);
   const history = useHistory();
 
   const verifyBtn = useCallback(() => {
@@ -34,10 +37,22 @@ function Login() {
     setPassword(target.value);
   };
 
+  const handleLoginButton = async () => {
+    try {
+      const { data: { token } } = await api.post('/login', { email, password });
+      saveToken(token);
+      history.push('/customer/products');
+    } catch (err) {
+      console.log(err);
+      setIsNotFound(true);
+    }
+  };
+
   return (
     <div>
       <h1>NOMEDOAPP</h1>
       <CommonForm
+        isNotFound={ isNotFound }
         history={ history }
         isLogin={ isLogin }
         email={ email }
@@ -45,6 +60,7 @@ function Login() {
         btnIsDisabled={ btnIsDisabled }
         handleChangeEmail={ handleChangeEmail }
         handleChangePassword={ handleChangePassword }
+        handleLoginButton={ handleLoginButton }
       />
     </div>
   );

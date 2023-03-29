@@ -3,16 +3,18 @@ import React from 'react';
 
 function CommonForm({
   isLogin,
+  isNotFound,
   handleChangeEmail,
   handleChangePassword,
   handleChangeName,
+  handleLoginButton,
   email,
   password,
   btnIsDisabled,
   name,
   history,
 }) {
-  const common = isLogin ? 'common_login__' : 'common_register__';
+  const common = 'common_login__';
   return (
     <>
       <form>
@@ -20,7 +22,7 @@ function CommonForm({
           <label htmlFor="name">
             Nome :
             <input
-              data-testid={ `${common}input-name"` }
+              data-testid={ `${common}input-name` }
               id="name"
               type="name"
               placeholder="Nome..."
@@ -32,7 +34,7 @@ function CommonForm({
         <label htmlFor="email">
           Login :
           <input
-            data-testid={ `${common}input-email"` }
+            data-testid={ `${common}input-email` }
             id="email"
             type="email"
             placeholder="email@email.com"
@@ -56,6 +58,7 @@ function CommonForm({
             data-testid={ `${common}button-login` }
             type="button"
             disabled={ btnIsDisabled }
+            onClick={ handleLoginButton }
           >
             Login
           </button>
@@ -68,7 +71,9 @@ function CommonForm({
           {isLogin ? 'Ainda não tenho conta' : 'CADASTRAR'}
         </button>
       </form>
-      <p data-testid={ `${common}element-invalid-email` }>elemento oculto</p>
+      {isNotFound && (
+        <p data-testid={ `${common}element-invalid-email` }>elemento oculto</p>
+      )}
     </>
   );
 }
