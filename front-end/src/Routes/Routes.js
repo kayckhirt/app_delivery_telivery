@@ -7,7 +7,7 @@ import CustomerCheckout from '../Pages/CustomerCheckout';
 import SellerOrders from '../Pages/SellerOrders';
 import SellerOrderDetails from '../Pages/SellerOrderDetails';
 import CustomerOrders from '../Pages/CustomerOrders';
-import Register from '../Pages/Register';
+// import Register from '../Pages/Register';
 import AdminManage from '../Pages/AdminManage';
 
 function Routes() {
@@ -15,7 +15,7 @@ function Routes() {
     <Switch>
       <Route exact path="/" render={ () => <Redirect to="/login" /> } />
       <Route exact path="/login" component={ Login } />
-      <Route exact path="/register" component={ Register } />
+      <Route exact path="/register" component={ Login } />
       <Route exact path="/customer/products" component={ CustomerProducts } />
       <Route exact path="/customer/checkout" component={ CustomerCheckout } />
       <Route
