@@ -7,16 +7,12 @@ services:
     ports:
       - 3306:3306
     environment:
-      - MYSQL_PORT=3306
       - MYSQL_USER=root
       - MYSQL_ROOT_PASSWORD=senhaDoDB
-      - MYSQL_HOST=db
-      - MYSQL_DB_NAME=delivery-app
-      - EVAL_ALWAYS_RESTORE_DEV_DB=true
     restart: 'always'
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"] # Deve aguardar o banco ficar operacional
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"] 
       timeout: 10s
       retries: 5
     cap_add:
-      - SYS_NICE # Deve omitir alertas menores
+      - SYS_NICE

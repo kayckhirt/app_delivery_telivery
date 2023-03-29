@@ -71,6 +71,3 @@ function Login() {
         elemento oculto
       </div>
     </div>
-  );
-}
-export default Login;
