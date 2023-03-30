@@ -1,4 +1,6 @@
+const md5 = require('md5');
 const usersService = require('../services/users.service');
+const { generateJWT } = require('../auth/jwt.auth');
 
 // const { CustomError } = require('../errors/custom.error');
 
@@ -14,7 +16,10 @@ const login = async (req, res, next) => {
 
 const register = async (req, res, next) => {
   try {
-    return res.status(201).json();
+    console.log('oi');
+    const { name, email, password, role } = req.body;
+    await usersService.create({ name, email, password: md5(password), role });
+    return res.status(201).json({ token: generateJWT({ email, password }) });
   } catch (err) {
     next(err);
   }
