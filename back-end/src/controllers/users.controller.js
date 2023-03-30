@@ -7,8 +7,8 @@ const { generateJWT } = require('../auth/jwt.auth');
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const token = await usersService.getByEmail(email, password);
-    return res.status(200).json({ token });
+    const user = await usersService.getByEmail(email, password);
+    return res.status(200).json(user);
   } catch (err) {
      next(err);
   }
@@ -23,6 +23,15 @@ const register = async (req, res, next) => {
     next(err);
   }
 };
+
+// const getByToken = async (req, res, next) => {
+//   try {
+//     const { user } = req.body;
+//     return res.status(200).json(user);
+//   } catch (err) {
+//     next(err);
+//   }
+// };
 
 // const getById = async (req, res, next) => {
 //   try {

@@ -33,11 +33,8 @@ function ProductCard({ id, price, urlImage, name }) {
     const numericQuantity = Number(newQuantity);
     if (!Number.isNaN(numericQuantity)) {
       setLocalQuantity(numericQuantity);
+      updateGlobalAndLocalQuantity(numericQuantity);
     }
-  };
-
-  const handleBlur = () => {
-    updateGlobalAndLocalQuantity(localQuantity);
   };
 
   useEffect(() => {
@@ -68,7 +65,6 @@ function ProductCard({ id, price, urlImage, name }) {
 
         <input
           onChange={ handleInput }
-          onBlur={ handleBlur }
           name={ id }
           value={ localQuantity }
           data-testid={ `customer_products__input-card-quantity-${id}` }

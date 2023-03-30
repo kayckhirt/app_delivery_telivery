@@ -1,10 +1,22 @@
-import React from 'react';
-// import { useHistory } from 'react-router-dom';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { clearSession, getToken } from '../utils/localStorage';
 // import AppContext from '../Context/AppContext';
 
 function NavBar() {
-  // const history = useHistory();
+  const history = useHistory();
+  const [user, setUser] = useState('');
   // const { pathname } = history.location;
+  const logout = useCallback(() => {
+    clearSession();
+    history.push('/');
+  }, [history]);
+
+  useEffect(() => {
+    const token = getToken();
+    if (!token) logout();
+    setUser(token.name);
+  }, [logout]);
 
   return (
     <nav>
@@ -24,11 +36,12 @@ function NavBar() {
         data-testid="customer_products__element-navbar-user-full-name"
         type="button"
       >
-        Nome cliente
+        {user}
       </button>
       <button
         data-testid="customer_products__element-navbar-link-logout"
         type="button"
+        onClick={ logout }
       >
         Sair
       </button>

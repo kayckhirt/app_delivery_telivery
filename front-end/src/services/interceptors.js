@@ -5,9 +5,9 @@ export function setAuthorizationHeader(req, token) {
 }
 
 function onRequest(config) {
-  const token = getToken();
-  if (token) {
-    setAuthorizationHeader(config, token);
+  const user = getToken();
+  if (user?.token) {
+    setAuthorizationHeader(config, user.token);
   }
   return config;
 }
