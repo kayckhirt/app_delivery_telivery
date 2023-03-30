@@ -6,9 +6,6 @@ import { saveToken } from '../utils/localStorage';
 import useForm from '../Hooks/UseForm';
 
 function Login() {
-  // const [email, setEmail] = useState('');
-  // const [name, setName] = useState('');
-  // const [password, setPassword] = useState('');
   const [btnIsDisabled, setBtnIsDisabled] = useState(true);
   const [isLogin, setisLogin] = useState(true);
   const [isNotFound, setIsNotFound] = useState(false);
@@ -39,18 +36,6 @@ function Login() {
     const isLoginRoute = history.location.pathname === '/login';
     setisLogin(isLoginRoute);
   }, [history.location.pathname]);
-
-  // const handleChangeEmail = ({ target }) => {
-  //   setEmail(target.value);
-  // };
-
-  // const handleChangeName = ({ target }) => {
-  //   setName(target.value);
-  // };
-
-  // const handleChangePassword = ({ target }) => {
-  //   setPassword(target.value);
-  // };
 
   const handleLoginButton = async () => {
     try {
