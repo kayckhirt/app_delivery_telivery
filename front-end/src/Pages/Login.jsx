@@ -39,10 +39,13 @@ function Login() {
 
   const handleLoginButton = async () => {
     try {
-      const { email, password } = formData;
+      const { name, email, password } = formData;
       const {
         data: { token },
-      } = await api.post('/login', { email, password });
+      } = await api.post(
+        isLogin ? '/login' : '/register',
+        { email, password, name, role: 'customer' },
+      );
       saveToken(token);
       history.push('/customer/products');
     } catch (err) {

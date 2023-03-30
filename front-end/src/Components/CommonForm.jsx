@@ -65,14 +65,18 @@ function CommonForm({
         <button
           data-testid={ `${common}button-register` }
           type="button"
-          onClick={ () => history.push('/register') }
+          onClick={ isLogin ? () => history.push('/register') : handleLoginButton }
           disabled={ isLogin ? false : btnIsDisabled }
         >
           {isLogin ? 'Ainda não tenho conta' : 'CADASTRAR'}
         </button>
       </form>
       {isNotFound && (
-        <p data-testid={ `${common}element-invalid-email` }>elemento oculto</p>
+        <p
+          data-testid={ `${common}element-invalid${isLogin ? '-email' : '_register'}` }
+        >
+          {isLogin ? 'Email ou senha inválidos' : 'O usuário já existe'}
+        </p>
       )}
     </>
   );
