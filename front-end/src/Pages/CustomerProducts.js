@@ -30,13 +30,13 @@ function CustomerProducts() {
     <>
       <NavBar />
       <h3>CustomerProducts</h3>
-      {products.map(({ id, price, image, title }) => (
+      {products.map(({ id, price, urlImage, name }) => (
         <ProductCard
-          key={ `${title}${id}` }
+          key={ `${name}${id}` }
           id={ id }
-          price={ price }
-          image={ image }
-          title={ title }
+          price={ price.replace('.', ',') }
+          urlImage={ urlImage }
+          name={ name }
         />))}
     </>
   );

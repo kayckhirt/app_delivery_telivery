@@ -3,7 +3,7 @@ import React from 'react';
 // import { useHistory } from 'react-router-dom';
 // import AppContext from '../Context/AppContext';
 
-function Header({ id, price, image, title }) {
+function Header({ id, price, urlImage, name }) {
   // const history = useHistory();
   // const { pathname } = history.location;
 
@@ -11,11 +11,12 @@ function Header({ id, price, image, title }) {
     <article>
       <p data-testid={ `customer_products__element-card-price-${id}` }>{price}</p>
       <img
+        width={ 100 }
         data-testid={ `customer_products__img-card-bg-image-${id}` }
-        src={ image }
+        src={ urlImage }
         alt="product_image"
       />
-      <p data-testid={ `customer_products__element-card-title-${id}` }>{title}</p>
+      <p data-testid={ `customer_products__element-card-title-${id}` }>{name}</p>
 
       <div>
         <button
@@ -25,7 +26,10 @@ function Header({ id, price, image, title }) {
           +
         </button>
 
-        <input data-testid={ `customer_products__input-card-quantity-${id}` } />
+        <input
+          value={ 0 }
+          data-testid={ `customer_products__input-card-quantity-${id}` }
+        />
 
         <button
           type="button"
