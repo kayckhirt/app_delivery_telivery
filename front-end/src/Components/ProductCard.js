@@ -17,21 +17,23 @@ function Header({ id, price, image, title }) {
       />
       <p data-testid={ `customer_products__element-card-title-${id}` }>{title}</p>
 
-      <button
-        type="button"
-        data-testid={ `customer_products__button-card-add-item-${id}` }
-      >
-        +
-      </button>
+      <div>
+        <button
+          type="button"
+          data-testid={ `customer_products__button-card-add-item-${id}` }
+        >
+          +
+        </button>
 
-      <p data-testid={ `customer_products__input-card-quantity-${id}` }>quantity</p>
+        <input data-testid={ `customer_products__input-card-quantity-${id}` } />
 
-      <button
-        type="button"
-        data-testid={ `customer_products__button-card-rm-item-${id}` }
-      >
-        -
-      </button>
+        <button
+          type="button"
+          data-testid={ `customer_products__button-card-rm-item-${id}` }
+        >
+          -
+        </button>
+      </div>
     </article>
   );
 }
