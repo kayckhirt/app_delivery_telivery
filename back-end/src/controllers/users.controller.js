@@ -24,6 +24,16 @@ const register = async (req, res, next) => {
   }
 };
 
+const getByToken = async (req, res, next) => {
+  try {
+    const { user } = req.body;
+    // const result = await usersService.getByToken(user);
+    return res.status(200).json(user);
+  } catch (err) {
+    next(err);
+  }
+};
+
 // const getById = async (req, res, next) => {
 //   try {
 //     return res.status(200).json();
@@ -43,6 +53,7 @@ const register = async (req, res, next) => {
 module.exports = {
   login,
   register,
+  getByToken,
   // getById,
   // getAll,
 };
