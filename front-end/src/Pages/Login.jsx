@@ -41,12 +41,15 @@ function Login() {
     try {
       const { name, email, password } = formData;
       const {
-        data: { token },
+        data,
       } = await api.post(
         isLogin ? '/login' : '/register',
         { email, password, name, role: 'customer' },
       );
-      saveToken(token);
+      console.log(data);
+      saveToken(data);
+      setFormData({ email: '', password: '', name: '' });
+      setBtnIsDisabled(true);
       history.push('/customer/products');
     } catch (err) {
       console.log(err);

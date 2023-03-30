@@ -68,6 +68,7 @@ export default function CartProvider({ children }) {
       setLoadingProducts(true);
       const { data } = await api.get('/products');
       setProducts(data);
+
       updateCartValue();
     } catch (err) {
       console.error(err);

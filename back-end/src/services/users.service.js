@@ -1,5 +1,5 @@
 const md5 = require('md5');
-const { generateJWT, decodeJWT } = require('../auth/jwt.auth');
+const { generateJWT } = require('../auth/jwt.auth');
 const { User } = require('../database/models');
 const { CustomError } = require('../errors/custom.error');
 
@@ -7,18 +7,15 @@ const getByEmail = async (email, password) => {
   const result = await User.findOne({ where: { email } });
   if (!result) throw CustomError('404', 'Email e/ou senha inválidos');
   if (result.password !== md5(password)) throw CustomError('404', 'Email e/ou senha inválidos');
-  delete result.password;
-  return generateJWT(result.dataValues);
+  delete result.dataValues.password;
+  delete result.dataValues.id;
+  return { ...result.dataValues, token: generateJWT(result.dataValues) };
 };
 
 const getByUserId = async (id) => {
-  const result = await User.findByPk({ where: { id } });
-  if (!result) throw CustomError('404', 'Usuário inexistente');
-  if (result.password !== md5(result.dataValues.password)) { 
-    throw CustomError('404', 'Login invalido'); 
-}
+  const result = await User.findByPk(id);
   delete result.dataValues.password;
-  return generateJWT(result.dataValues);
+  return result;
 };
 
 const create = async ({ name, email, password, role }) => {
@@ -29,21 +26,9 @@ const create = async ({ name, email, password, role }) => {
 
 const getAll = async () => {};
 
-const getByToken = async (token) => {
-  const payload = decodeJWT(token);
-  console.log(payload);
-  const user = await User.findOne({ where: { ...payload } }, {
-    attributes: {
-      exclude: ['password'],
-    },
-  });
-  return user;
-};
-
 module.exports = {
   getByEmail,
   getByUserId,
   create,
   getAll,
-  getByToken,
 };
