@@ -1,40 +1,45 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import Loading from '../Components/Loading';
 import NavBar from '../Components/NavBar';
 import ProductCard from '../Components/ProductCard';
-
-import api from '../services/api';
+import CartContext from '../Context/CartContext';
 
 function CustomerProducts() {
-  const [loading, setLoading] = useState(true);
-  const [products, setProducts] = useState([]);
-  const fetchProducts = async () => {
-    try {
-      setLoading(true);
-      const { data } = await api.get('/products');
-      setProducts(data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
+  const history = useHistory();
+  const { loadingProducts, products, totalCartValue } = useContext(CartContext);
+
+  if (loadingProducts) return <Loading />;
+
+  const handleRedirect = () => {
+    history.push('/customer/checkout');
   };
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  if (loading) return <Loading />;
 
   return (
     <>
       <NavBar />
       <h3>CustomerProducts</h3>
+      <div>
+        <button
+          disabled={ totalCartValue === 0 }
+          onClick={ handleRedirect }
+          type="button"
+          data-testid="customer_products__button-cart"
+        >
+          {totalCartValue.toFixed(2).replace('.', ',')}
+
+        </button>
+        <p
+          data-testid="customer_products__checkout-bottom-value"
+        >
+          {totalCartValue.toFixed(2).replace('.', ',')}
+        </p>
+      </div>
       {products.map(({ id, price, urlImage, name }) => (
         <ProductCard
           key={ `${name}${id}` }
           id={ id }
-          price={ price.replace('.', ',') }
+          price={ price }
           urlImage={ urlImage }
           name={ name }
         />))}
