@@ -6,9 +6,6 @@ import { saveToken } from '../utils/localStorage';
 import useForm from '../Hooks/UseForm';
 
 function Login() {
-  // const [email, setEmail] = useState('');
-  // const [name, setName] = useState('');
-  // const [password, setPassword] = useState('');
   const [btnIsDisabled, setBtnIsDisabled] = useState(true);
   const [isLogin, setisLogin] = useState(true);
   const [isNotFound, setIsNotFound] = useState(false);
@@ -18,15 +15,18 @@ function Login() {
     password: '',
     name: '',
   });
+
   const verifyBtn = useCallback(() => {
-    const { email, password } = formData;
+    const { email, password, name } = formData;
     const regex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
-    const minLength = 5;
+    const minLengthPassword = 5;
+    const minLengthName = 11;
     const verifyEmail = email && regex.test(email);
-    const verifyPassword = password.length > minLength;
-    const emailAndPassword = verifyEmail && verifyPassword;
-    setBtnIsDisabled(!emailAndPassword);
-  }, [formData]);
+    const verifyPassword = password.length > minLengthPassword;
+    const verifyLogin = verifyEmail && verifyPassword;
+    const verifyRegister = verifyLogin && name.length > minLengthName;
+    setBtnIsDisabled(isLogin ? !verifyLogin : !verifyRegister);
+  }, [formData, isLogin]);
 
   useEffect(() => {
     verifyBtn();
@@ -36,18 +36,6 @@ function Login() {
     const isLoginRoute = history.location.pathname === '/login';
     setisLogin(isLoginRoute);
   }, [history.location.pathname]);
-
-  // const handleChangeEmail = ({ target }) => {
-  //   setEmail(target.value);
-  // };
-
-  // const handleChangeName = ({ target }) => {
-  //   setName(target.value);
-  // };
-
-  // const handleChangePassword = ({ target }) => {
-  //   setPassword(target.value);
-  // };
 
   const handleLoginButton = async () => {
     try {

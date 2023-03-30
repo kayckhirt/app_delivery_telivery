@@ -7,7 +7,6 @@ import CustomerCheckout from '../Pages/CustomerCheckout';
 import SellerOrders from '../Pages/SellerOrders';
 import SellerOrderDetails from '../Pages/SellerOrderDetails';
 import CustomerOrders from '../Pages/CustomerOrders';
-// import Register from '../Pages/Register';
 import AdminManage from '../Pages/AdminManage';
 
 function Routes() {
