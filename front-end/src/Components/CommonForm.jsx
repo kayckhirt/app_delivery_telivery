@@ -66,6 +66,7 @@ function CommonForm({
           data-testid={ `${common}button-register` }
           type="button"
           onClick={ () => history.push('/register') }
+          disabled={ isLogin ? false : btnIsDisabled }
         >
           {isLogin ? 'Ainda não tenho conta' : 'CADASTRAR'}
         </button>
