@@ -72,7 +72,11 @@ function CommonForm({
         </button>
       </form>
       {isNotFound && (
-        <p data-testid={ `${common}element-invalid-email` }>elemento oculto</p>
+        <p
+          data-testid={ `${common}element-invalid${isLogin ? '-email' : '_register'}` }
+        >
+          {isLogin ? 'Email ou senha inválidos' : 'O usuário já existe'}
+        </p>
       )}
     </>
   );

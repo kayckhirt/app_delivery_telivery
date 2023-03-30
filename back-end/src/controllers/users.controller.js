@@ -16,10 +16,9 @@ const login = async (req, res, next) => {
 
 const register = async (req, res, next) => {
   try {
-    console.log('oi');
     const { name, email, password, role } = req.body;
     await usersService.create({ name, email, password: md5(password), role });
-    return res.status(201).json({ token: generateJWT({ email, password }) });
+    return res.status(201).json({ token: generateJWT({ email, password, role }) });
   } catch (err) {
     next(err);
   }
