@@ -1,7 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import useForm from '../Hooks/UseForm';
 import NavBar from '../Components/NavBar';
 import CartContext from '../Context/CartContext';
 import { getCart } from '../utils/localStorage';
+import api from '../services/api';
 
 const fields = [
   'Item',
@@ -13,12 +15,30 @@ const fields = [
 ];
 
 function CustomerCheckout() {
-  const { totalCartValue, removeProduct, updateCart } = useContext(CartContext);
+  const { totalCartValue, removeProduct } = useContext(CartContext);
+  const { formData, onInputChange, onSelectChange } = useForm(
+    { sellerId: 2, address: '', addressNumber: '' },
+  );
+  const [sellers, setSellers] = useState([]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    updateCart();
+    console.log(formData);
   };
+
+  const fetchStudents = useCallback(async () => {
+    try {
+      const { data } = await api('/users/sellers');
+      setSellers(data);
+      console.log(data);
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchStudents();
+  }, []);
 
   const handleRem = (product) => removeProduct(product);
 
@@ -110,13 +130,31 @@ function CustomerCheckout() {
           Vendedor
           <select
             id="selectSeller"
+            name="sellerId"
+            onChange={ onSelectChange }
             data-testid="customer_checkout__select-seller"
           >
-            <option> vendedor </option>
+            {
+              sellers.map(({ id, name }) => (
+                <option key={ name } value={ id }>
+                  {name}
+                </option>))
+            }
+
           </select>
         </label>
-        <input type="text" data-testid="customer_checkout__input-address" />
-        <input type="text" data-testid="customer_checkout__input-address-number" />
+        <input
+          name="address"
+          onChange={ onInputChange }
+          type="text"
+          data-testid="customer_checkout__input-address"
+        />
+        <input
+          name="addressNumber"
+          onChange={ onInputChange }
+          type="text"
+          data-testid="customer_checkout__input-address-number"
+        />
         <button
           type="submit"
           data-testid="customer_checkout__button-submit-order"
