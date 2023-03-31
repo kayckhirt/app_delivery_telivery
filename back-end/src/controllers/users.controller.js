@@ -24,6 +24,15 @@ const register = async (req, res, next) => {
   }
 };
 
+const getAllSellers = async (_req, res, next) => {
+  try {
+  const sellers = await usersService.getAllSellers();
+  return res.status(200).json(sellers);
+} catch (err) {
+  next(err);
+}
+};
+
 // const getByToken = async (req, res, next) => {
 //   try {
 //     const { user } = req.body;
@@ -52,6 +61,7 @@ const register = async (req, res, next) => {
 module.exports = {
   login,
   register,
+  getAllSellers,
   // getById,
   // getAll,
 };

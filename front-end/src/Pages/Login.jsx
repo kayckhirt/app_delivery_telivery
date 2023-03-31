@@ -5,6 +5,10 @@ import api from '../services/api';
 import { saveToken } from '../utils/localStorage';
 import useForm from '../Hooks/UseForm';
 
+const MIN_LENGTH_PASSWORD = 5;
+const MIN_LENGTH_NAME = 11;
+const EMAIL_REGEX = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
+
 function Login() {
   const [btnIsDisabled, setBtnIsDisabled] = useState(true);
   const [isLogin, setisLogin] = useState(true);
@@ -18,13 +22,11 @@ function Login() {
 
   const verifyBtn = useCallback(() => {
     const { email, password, name } = formData;
-    const regex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
-    const minLengthPassword = 5;
-    const minLengthName = 11;
-    const verifyEmail = email && regex.test(email);
-    const verifyPassword = password.length > minLengthPassword;
+
+    const verifyEmail = email && EMAIL_REGEX.test(email);
+    const verifyPassword = password.length > MIN_LENGTH_PASSWORD;
     const verifyLogin = verifyEmail && verifyPassword;
-    const verifyRegister = verifyLogin && name.length > minLengthName;
+    const verifyRegister = verifyLogin && name.length > MIN_LENGTH_NAME;
     setBtnIsDisabled(isLogin ? !verifyLogin : !verifyRegister);
   }, [formData, isLogin]);
 
@@ -46,13 +48,12 @@ function Login() {
         isLogin ? '/login' : '/register',
         { email, password, name, role: 'customer' },
       );
-      console.log(data);
       saveToken(data);
       setFormData({ email: '', password: '', name: '' });
       setBtnIsDisabled(true);
       history.push('/customer/products');
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setIsNotFound(true);
     }
   };
@@ -65,7 +66,6 @@ function Login() {
         setFormData={ setFormData }
         onInputChange={ onInputChange }
         isNotFound={ isNotFound }
-        history={ history }
         isLogin={ isLogin }
         btnIsDisabled={ btnIsDisabled }
         handleLoginButton={ handleLoginButton }

@@ -4,6 +4,8 @@ const useForm = (formState) => {
   const [formData, setFormData] = useState(formState);
   const onInputChange = (event) => {
     const { name, value } = event.target;
+    console.log(name, value);
+
     setFormData({ ...formData, [name]: value });
   };
   const onSelectChange = (event) => {

@@ -46,6 +46,19 @@ export default function CartProvider({ children }) {
     return newProductList;
   };
 
+  const removeProduct = useCallback((product) => {
+    const productsOnCart = getCart();
+    const { cartIndex } = getCartItem(product.productId);
+
+    const productToUpdate = { item: {
+      ...product,
+      quantity: 0,
+    },
+    cartIndex };
+    const newProductList = generateProductList(productsOnCart, productToUpdate);
+    updateCart(newProductList);
+  }, [updateCart]);
+
   const updateQuantity = useCallback((product, newQuantity) => {
     const productsOnCart = getCart();
     const { cartIndex } = getCartItem(product.id);
@@ -55,7 +68,7 @@ export default function CartProvider({ children }) {
       name: product.name,
       unitPrice: product.price,
       quantity: newQuantity,
-      subTotal: parseFloat(Number(product.price) * newQuantity, 2),
+      subTotal: Math.round((Number(product.price) * newQuantity) * 100) / 100,
     },
     cartIndex };
 
@@ -89,14 +102,20 @@ export default function CartProvider({ children }) {
       getQuantity,
       updateCart,
       updateQuantity,
-      totalCartValue }),
-    [fetchProducts,
+      totalCartValue,
+      updateCartValue,
+      removeProduct,
+    }),
+    [
+      fetchProducts,
       totalCartValue,
       getQuantity,
       loadingProducts,
       products,
       updateCart,
-      updateQuantity],
+      updateQuantity,
+      removeProduct,
+    ],
   );
   return (
     <CartContext.Provider

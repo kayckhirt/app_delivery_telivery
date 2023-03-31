@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 function CommonForm({
   onInputChange,
@@ -8,8 +9,8 @@ function CommonForm({
   isNotFound,
   handleLoginButton,
   btnIsDisabled,
-  history,
 }) {
+  const history = useHistory();
   const common = isLogin ? 'common_login__' : 'common_register__';
   return (
     <>

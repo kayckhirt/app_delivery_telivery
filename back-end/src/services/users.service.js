@@ -12,6 +12,11 @@ const getByEmail = async (email, password) => {
   return { ...result.dataValues, token: generateJWT(result.dataValues) };
 };
 
+const getAllSellers = async () => {
+  const result = await User.findAll({ where: { role: 'seller' } });
+  return result;
+};
+
 const getByUserId = async (id) => {
   const result = await User.findByPk(id);
   delete result.dataValues.password;
@@ -31,4 +36,5 @@ module.exports = {
   getByUserId,
   create,
   getAll,
+  getAllSellers,
 };
