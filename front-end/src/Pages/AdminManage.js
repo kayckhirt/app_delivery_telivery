@@ -25,7 +25,6 @@ function AdminManage() {
     const verifyPassword = password.length > MIN_LENGTH_PASSWORD;
     const verifyName = name.length > MIN_LENGTH_NAME;
     const verifyRegister = verifyEmail && verifyPassword && verifyName;
-    console.log(verifyRegister);
     setBtnIsDisabled(!verifyRegister);
   }, [formData]);
 
