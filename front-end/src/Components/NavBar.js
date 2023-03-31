@@ -14,6 +14,10 @@ function NavBar() {
     history.push('/');
   }, [history, updateCartValue]);
 
+  const myOrders = () => {
+    history.push('/customer/orders');
+  };
+
   useEffect(() => {
     const token = getToken();
     if (!token) logout();
@@ -31,6 +35,7 @@ function NavBar() {
       <button
         data-testid="customer_products__element-navbar-link-orders"
         type="button"
+        onClick={ myOrders }
       >
         Meus Pedidos
       </button>

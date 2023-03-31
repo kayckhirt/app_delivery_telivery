@@ -23,7 +23,19 @@ const getById = async (req, res, next) => {
   }
 };
 
+const getByUserId = async (req, res, next) => {
+  try {
+    const { userId } = req.body;
+    const result = await salesService.getByUserId(userId);
+    if (!result) throw CustomError('404', 'notFound');
+    return res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   getAll,
   getById,
+  getByUserId,
 };
