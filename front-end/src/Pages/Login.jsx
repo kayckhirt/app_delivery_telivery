@@ -51,7 +51,20 @@ function Login() {
       saveToken(data);
       setFormData({ email: '', password: '', name: '' });
       setBtnIsDisabled(true);
-      history.push('/customer/products');
+      const { role } = data;
+      let endPoint = '';
+      switch (role) {
+      case 'customer':
+        endPoint = '/customer/products';
+        break;
+      case 'seller':
+        endPoint = '/seller/orders';
+        break;
+      default:
+        endPoint = '/admin/manage';
+        break;
+      }
+      history.push(endPoint);
     } catch (err) {
       console.error(err);
       setIsNotFound(true);
@@ -63,7 +76,7 @@ function Login() {
       <h1>NOMEDOAPP</h1>
       <CommonForm
         formData={ formData }
-        setFormData={ setFormData }
+        // setFormData={ setFormData }
         onInputChange={ onInputChange }
         isNotFound={ isNotFound }
         isLogin={ isLogin }
