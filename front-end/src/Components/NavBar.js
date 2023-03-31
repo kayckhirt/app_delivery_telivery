@@ -1,16 +1,18 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import CartContext from '../Context/CartContext';
 import { clearSession, getToken } from '../utils/localStorage';
 // import AppContext from '../Context/AppContext';
 
 function NavBar() {
   const history = useHistory();
   const [user, setUser] = useState('');
-  // const { pathname } = history.location;
+  const { updateCartValue } = useContext(CartContext);
   const logout = useCallback(() => {
     clearSession();
+    updateCartValue();
     history.push('/');
-  }, [history]);
+  }, [history, updateCartValue]);
 
   useEffect(() => {
     const token = getToken();
