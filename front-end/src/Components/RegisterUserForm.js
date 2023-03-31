@@ -61,7 +61,7 @@ function RegisterUserForm(
         >
           <option value="customer">Cliente</option>
           <option value="seller">Vendedor</option>
-          <option value="admin">Administrador</option>
+          <option value="administrator">Administrador</option>
         </select>
       </label>
       <button

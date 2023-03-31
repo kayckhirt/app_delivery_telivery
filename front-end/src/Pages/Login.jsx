@@ -52,16 +52,17 @@ function Login() {
       setFormData({ email: '', password: '', name: '' });
       setBtnIsDisabled(true);
       const { role } = data;
+      console.log(role);
       let endPoint = '';
       switch (role) {
-      case 'customer':
-        endPoint = '/customer/products';
+      case 'administrator':
+        endPoint = '/admin/manage';
         break;
       case 'seller':
         endPoint = '/seller/orders';
         break;
       default:
-        endPoint = '/admin/manage';
+        endPoint = '/customer/products';
         break;
       }
       history.push(endPoint);
