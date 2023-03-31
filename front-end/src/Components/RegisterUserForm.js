@@ -65,6 +65,7 @@ function RegisterUserForm(
         </select>
       </label>
       <button
+        data-testid="admin_manage__button-register"
         type="button"
         disabled={ btnIsDisabled }
         onClick={ handleRegisterBtn }
