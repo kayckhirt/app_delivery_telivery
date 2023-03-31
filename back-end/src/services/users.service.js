@@ -8,7 +8,6 @@ const getByEmail = async (email, password) => {
   if (!result) throw CustomError('404', 'Email e/ou senha inválidos');
   if (result.password !== md5(password)) throw CustomError('404', 'Email e/ou senha inválidos');
   delete result.dataValues.password;
-  delete result.dataValues.id;
   return { ...result.dataValues, token: generateJWT(result.dataValues) };
 };
 
@@ -19,6 +18,7 @@ const getAllSellers = async () => {
 
 const getByUserId = async (id) => {
   const result = await User.findByPk(id);
+  if (!result) throw CustomError('404', 'Usuário não encontrado');
   delete result.dataValues.password;
   return result;
 };

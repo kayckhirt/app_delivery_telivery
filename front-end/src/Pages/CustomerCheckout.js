@@ -1,8 +1,9 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import useForm from '../Hooks/UseForm';
 import NavBar from '../Components/NavBar';
 import CartContext from '../Context/CartContext';
-import { getCart } from '../utils/localStorage';
+import { getCart, getToken } from '../utils/localStorage';
 import api from '../services/api';
 
 const fields = [
@@ -15,20 +16,35 @@ const fields = [
 ];
 
 function CustomerCheckout() {
+  const history = useHistory();
   const { totalCartValue, removeProduct } = useContext(CartContext);
   const { formData, onInputChange, onSelectChange } = useForm(
-    { sellerId: 2, address: '', addressNumber: '' },
+    { sellerId: 2, deliveryAddress: '', deliveryNumber: '' },
   );
   const [sellers, setSellers] = useState([]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formData);
+    try {
+      const user = getToken();
+      console.log(user);
+      const products = getCart();
+      console.log({ userId: user.id, ...formData, products });
+      const { data } = await api.post(
+        '/sales',
+        { userId: user.id, ...formData, totalPrice: totalCartValue, products,
+        },
+      );
+      const saleId = data.id;
+      history.push(`/customer/orders/${saleId}`);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const fetchStudents = useCallback(async () => {
     try {
-      const { data } = await api('/users/sellers');
+      const { data } = await api.get('/users/sellers');
       setSellers(data);
       console.log(data);
     } catch (err) {
@@ -144,13 +160,13 @@ function CustomerCheckout() {
           </select>
         </label>
         <input
-          name="address"
+          name="deliveryAddress"
           onChange={ onInputChange }
           type="text"
           data-testid="customer_checkout__input-address"
         />
         <input
-          name="addressNumber"
+          name="deliveryNumber"
           onChange={ onInputChange }
           type="text"
           data-testid="customer_checkout__input-address-number"
