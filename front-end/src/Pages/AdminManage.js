@@ -37,7 +37,8 @@ function AdminManage() {
     try {
       const { email, password, name, role } = formData;
       await api.post('admin/manage', { name, email, password, role });
-      setFormData({ email: '',
+      setFormData({
+        email: '',
         password: '',
         name: '',
         role: '',
@@ -51,7 +52,14 @@ function AdminManage() {
     <div>
       <NavBar />
       Criar novo usuário
-      { isNotFound && <p>deu errado</p>}
+      {isNotFound
+        && (
+          <p
+            data-testid="admin_manage__element-invalid-register"
+          >
+            deu errado
+          </p>
+        )}
       <RegisterUserForm
         handleRegisterBtn={ handleRegisterBtn }
         formData={ formData }
