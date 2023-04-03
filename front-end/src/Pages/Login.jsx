@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import CommonForm from '../Components/CommonForm';
 import api from '../services/api';
-import { saveToken } from '../utils/localStorage';
+import { getToken, saveToken } from '../utils/localStorage';
 import useForm from '../Hooks/UseForm';
 
 const MIN_LENGTH_PASSWORD = 5;
@@ -19,6 +19,13 @@ function Login() {
     password: '',
     name: '',
   });
+
+  useEffect(() => {
+    const userData = getToken();
+    if (userData) {
+      history.push('/customer/products');
+    }
+  }, []);
 
   const verifyBtn = useCallback(() => {
     const { email, password, name } = formData;
