@@ -18,6 +18,10 @@ function NavBar() {
     history.push('/customer/orders');
   };
 
+  const products = () => {
+    history.push('/customer/products');
+  };
+
   useEffect(() => {
     const token = getToken();
     if (!token) logout();
@@ -29,6 +33,7 @@ function NavBar() {
       <button
         data-testid="customer_products__element-navbar-link-products"
         type="button"
+        onClick={ products }
       >
         Produtos
       </button>
