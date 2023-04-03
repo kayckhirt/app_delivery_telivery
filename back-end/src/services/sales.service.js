@@ -2,11 +2,12 @@ const sequelize = require('sequelize');
 const { Sale, SalesProduct } = require('../database/models');
 const userService = require('./users.service'); 
 const { CustomError } = require('../errors/custom.error');
-// const { CustomError } = require('../errors/custom.error');
 
 const getAll = async () => Sale.findAll();
 
 const getById = async (saleId) => Sale.findByPk(saleId);
+
+const getByUserId = async (userId) => Sale.findAll({ where: { userId } });
 
 const createSale = async ({ userId, 
   sellerId, 
@@ -43,4 +44,5 @@ module.exports = {
   getById,
   createSaleAndSaleProduct,
   getAll,
+  getByUserId,
 };

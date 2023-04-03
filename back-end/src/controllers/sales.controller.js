@@ -23,6 +23,17 @@ const getById = async (req, res, next) => {
   }
 };
 
+const getByUserId = async (req, res, next) => {
+  try {
+    const { userId } = req.body;
+    const result = await salesService.getByUserId(userId);
+    if (!result) throw CustomError('404', 'notFound');
+    return res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+};
+
 const createSaleAndSaleProduct = async (req, res, next) => {
   try {
     const result = await salesService.createSaleAndSaleProduct(req.body);
@@ -35,5 +46,6 @@ const createSaleAndSaleProduct = async (req, res, next) => {
 module.exports = {
   getAll,
   getById,
+  getByUserId,
   createSaleAndSaleProduct,
 };
