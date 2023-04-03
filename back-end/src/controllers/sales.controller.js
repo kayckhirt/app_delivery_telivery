@@ -34,8 +34,18 @@ const getByUserId = async (req, res, next) => {
   }
 };
 
+const createSaleAndSaleProduct = async (req, res, next) => {
+  try {
+    const result = await salesService.createSaleAndSaleProduct(req.body);
+    return res.status(201).json(result);
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   getAll,
   getById,
   getByUserId,
+  createSaleAndSaleProduct,
 };

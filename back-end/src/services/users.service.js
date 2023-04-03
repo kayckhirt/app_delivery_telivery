@@ -18,6 +18,7 @@ const getAllSellers = async () => {
 
 const getByUserId = async (id) => {
   const result = await User.findByPk(id);
+  if (!result) throw CustomError('404', 'Usuário não encontrado');
   delete result.dataValues.password;
   return result;
 };
