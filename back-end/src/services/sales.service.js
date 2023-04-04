@@ -41,13 +41,13 @@ const createSaleAndSaleProduct = async ({ products, ...saleData }) => {
 };
 
 const getSaleDetails = async (saleId) => {
-  const saleDetails = await SalesProduct.findByPk(saleId, {
+  const saleDetails = await SalesProduct.findOne({ where: { saleId } }, {
     include: [
       { model: User, as: 'seller', attributes: ['id', 'name'] },
       { model: Products, as: 'products', through: { attributes: ['quantity'] } },
     ],
   });
-  return { message: saleDetails };
+  return saleDetails;
 };
 
 module.exports = {

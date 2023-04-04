@@ -10,9 +10,7 @@ function CustomerOrders() {
   const getOrders = useCallback(async () => {
     try {
       const { id } = getToken();
-      console.log(id);
       const { data } = await api.post('/sales/orders/', { userId: id });
-      console.log(data);
       setOrders(data);
     } catch (err) {
       console.error(err);

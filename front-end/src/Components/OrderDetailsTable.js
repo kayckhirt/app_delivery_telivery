@@ -1,6 +1,8 @@
 // import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
+import api from '../services/api';
 
 const fields = [
   'Item',
@@ -11,10 +13,28 @@ const fields = [
 ];
 
 const part = 'customer_order_details__';
+
 function OrderDetailsTable() {
+  const [ordersDetails, setOrdersDetails] = useState([]);
+
   const { saleId } = useParams();
+  const getOrderDetails = useCallback(async () => {
+    try {
+      const { data } = await api.get(`/sales/details/${saleId}`);
+      console.log(data);
+      setOrdersDetails(data);
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
+
+  useEffect(() => {
+    getOrderDetails();
+  }, [getOrderDetails]);
+
   return (
     <div>
+      {console.log(ordersDetails)}
       <div>
         <p
           data-testid={ `${part}element-order-details-label-order-id` }
