@@ -1,5 +1,5 @@
 const sequelize = require('sequelize');
-const { Sale, SalesProduct } = require('../database/models');
+const { Sale, SalesProduct, User, Products } = require('../database/models');
 const userService = require('./users.service'); 
 const { CustomError } = require('../errors/custom.error');
 
@@ -40,9 +40,20 @@ const createSaleAndSaleProduct = async ({ products, ...saleData }) => {
     return { message: 'Venda cadastrada com sucesso', id: newSale.id };
 };
 
+const getSaleDetails = async (saleId) => {
+  const saleDetails = await SalesProduct.findByPk(saleId, {
+    include: [
+      { model: User, as: 'seller', attributes: ['id', 'name'] },
+      { model: Products, as: 'products', through: { attributes: ['quantity'] } },
+    ],
+  });
+  return { message: saleDetails };
+};
+
 module.exports = {
   getById,
   createSaleAndSaleProduct,
   getAll,
   getByUserId,
+  getSaleDetails,
 };

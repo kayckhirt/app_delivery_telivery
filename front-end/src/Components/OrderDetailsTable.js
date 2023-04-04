@@ -57,14 +57,12 @@ function OrderDetailsTable() {
             <td
               data-testid={ `${part}element-order-table-item-number-${saleId}` }
             >
-
               id
             </td>
             <td
               data-testid={ `${part}element-order-table-name-${saleId}` }
             >
               produto
-
             </td>
             <td
               data-testid={ `${part}element-order-table-quantity-${saleId}` }
@@ -75,13 +73,11 @@ function OrderDetailsTable() {
               data-testid={ `${part}element-order-table-unit-price-${saleId}` }
             >
               val
-
             </td>
             <td
               data-testid={ `${part}element-order-table-sub-total-${saleId}` }
             >
               sub
-
             </td>
           </tr>
         </tbody>
