@@ -23,7 +23,6 @@ function OrderDetailsTable() {
   const getOrderDetails = useCallback(async () => {
     try {
       const { data } = await api.get(`/sales/details/${saleId}`);
-      console.log(data);
       setOrdersDetails(data);
       setProducts(data.products);
     } catch (err) {
