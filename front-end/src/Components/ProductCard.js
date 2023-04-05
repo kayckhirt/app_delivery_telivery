@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
 import CartContext from '../Context/CartContext';
-// import { useHistory } from 'react-router-dom';
-// import AppContext from '../Context/AppContext';
 
 function ProductCard({ id, price, urlImage, name }) {
   const { getQuantity, updateQuantity } = useContext(CartContext);
