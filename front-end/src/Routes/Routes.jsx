@@ -17,7 +17,7 @@ function Routes() {
       <Route exact path="/customer/checkout" component={ Checkout } />
       <Route
         exact
-        path="/customer/orders/:saleId"
+        path="/customer/orders/:id"
         component={ OrderDetails }
       />
       <Route exact path="/customer/orders/" component={ Orders } />
