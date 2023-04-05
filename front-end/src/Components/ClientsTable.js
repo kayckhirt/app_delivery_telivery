@@ -15,24 +15,25 @@ const fields = [
 const part = 'admin_manage__';
 
 function ClientsTable() {
-//  const [ordersDetails, setOrdersDetails] = useState([]);
-//  const [products, setProducts] = useState([]);
-//
-//  const { saleId } = useParams();
-//  const getOrderDetails = useCallback(async () => {
-//    try {
-//      const { data } = await api.get(`/sales/details/${saleId}`);
-//      console.log(data);
-//      setOrdersDetails(data);
-//      setProducts(data.products);
-//    } catch (err) {
-//      console.error(err);
-//    }
-//  }, [saleId]);
-//
-//  useEffect(() => {
-//    getOrderDetails();
-//  }, [getOrderDetails]);
+  const index = 1;
+  //  const [ordersDetails, setOrdersDetails] = useState([]);
+  //  const [products, setProducts] = useState([]);
+  //
+  //  const { saleId } = useParams();
+  //  const getOrderDetails = useCallback(async () => {
+  //    try {
+  //      const { data } = await api.get(`/sales/details/${saleId}`);
+  //      console.log(data);
+  //      setOrdersDetails(data);
+  //      setProducts(data.products);
+  //    } catch (err) {
+  //      console.error(err);
+  //    }
+  //  }, [saleId]);
+  //
+  //  useEffect(() => {
+  //    getOrderDetails();
+  //  }, [getOrderDetails]);
 
   return (
     <div>
@@ -46,13 +47,13 @@ function ClientsTable() {
           </tr>
         </thead>
         <tbody>
-          <tr key={ i }>
+          <tr key={ index }>
             <td
               data-testid={ `${part}element-user-table-item-number-${index}` }
             >
               Item
             </td>
-            <td data-testid={ `${part}element-user-table-item-number-${index}` }>
+            <td data-testid={ `${part}element-user-table-name-${index}` }>
               Nome
             </td>
             <td data-testid={ `${part}element-user-table-email-${index}` }>
