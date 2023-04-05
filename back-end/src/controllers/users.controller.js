@@ -33,35 +33,8 @@ const getAllSellers = async (_req, res, next) => {
 }
 };
 
-// const getByToken = async (req, res, next) => {
-//   try {
-//     const { user } = req.body;
-//     return res.status(200).json(user);
-//   } catch (err) {
-//     next(err);
-//   }
-// };
-
-// const getById = async (req, res, next) => {
-//   try {
-//     return res.status(200).json();
-//   } catch (err) {
-//     next(err);
-//   }
-// };
-
-// const getAll = async (_req, res, next) => {
-//   try {
-//     return res.status(200).json();
-//   } catch (err) {
-//     next(err);
-//   }
-// };
-
 module.exports = {
   login,
   register,
   getAllSellers,
-  // getById,
-  // getAll,
 };
