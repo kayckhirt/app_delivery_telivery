@@ -2,12 +2,10 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Login from '../Pages/Login';
 import CustomerProducts from '../Pages/CustomerProducts';
-import CustomerOrderDetails from '../Pages/CustomerOrderDetails';
-import CustomerCheckout from '../Pages/CustomerCheckout';
-import SellerOrders from '../Pages/SellerOrders';
-import SellerOrderDetails from '../Pages/SellerOrderDetails';
-import CustomerOrders from '../Pages/CustomerOrders';
 import AdminManage from '../Pages/AdminManage';
+import Checkout from '../Pages/Checkout';
+import Orders from '../Pages/Orders';
+import OrderDetails from '../Pages/OrderDetails';
 
 function Routes() {
   return (
@@ -16,15 +14,15 @@ function Routes() {
       <Route exact path="/login" component={ Login } />
       <Route exact path="/register" component={ Login } />
       <Route exact path="/customer/products" component={ CustomerProducts } />
-      <Route exact path="/customer/checkout" component={ CustomerCheckout } />
+      <Route exact path="/customer/checkout" component={ Checkout } />
       <Route
         exact
         path="/customer/orders/:saleId"
-        component={ CustomerOrderDetails }
+        component={ OrderDetails }
       />
-      <Route exact path="/customer/orders/" component={ CustomerOrders } />
-      <Route exact path="/seller/orders/:id" component={ SellerOrderDetails } />
-      <Route exact path="/seller/orders" component={ SellerOrders } />
+      <Route exact path="/customer/orders/" component={ Orders } />
+      <Route exact path="/seller/orders/:id" component={ OrderDetails } />
+      <Route exact path="/seller/orders" component={ Orders } />
       <Route exact path="/admin/manage" component={ AdminManage } />
     </Switch>
   );

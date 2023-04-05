@@ -15,7 +15,7 @@ const fields = [
   'Remover Item',
 ];
 
-function CustomerCheckout() {
+function Checkout() {
   const history = useHistory();
   const { totalCartValue, removeProduct } = useContext(CartContext);
   const { formData, onInputChange, onSelectChange } = useForm(
@@ -27,9 +27,7 @@ function CustomerCheckout() {
     event.preventDefault();
     try {
       const user = getToken();
-      console.log(user);
       const products = getCart();
-      console.log({ userId: user.id, ...formData, products });
       const { data } = await api.post(
         '/sales',
         { userId: user.id, ...formData, totalPrice: totalCartValue, products,
@@ -46,7 +44,6 @@ function CustomerCheckout() {
     try {
       const { data } = await api.get('/users/sellers');
       setSellers(data);
-      console.log(data);
     } catch (err) {
       console.error(err);
     }
@@ -182,4 +179,4 @@ function CustomerCheckout() {
     </main>
   );
 }
-export default CustomerCheckout;
+export default Checkout;

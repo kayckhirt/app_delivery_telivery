@@ -27,7 +27,6 @@ const create = async ({ name, email, password, role }) => {
   const user = await User.findOne({ where: { email } });
   if (user) throw CustomError('409', 'O usuário já existe');
   const { dataValues: { id } } = await User.create({ name, email, password, role });
-  console.log(id);
   return id;
 };
 

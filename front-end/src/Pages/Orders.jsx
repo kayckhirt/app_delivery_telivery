@@ -4,7 +4,7 @@ import { getToken } from '../utils/localStorage';
 import OrdersCard from '../Components/OrdersCard';
 import api from '../services/api';
 
-function CustomerOrders() {
+function Orders() {
   const [orders, setOrders] = useState([]);
 
   const getOrders = useCallback(async () => {
@@ -38,4 +38,4 @@ function CustomerOrders() {
     </div>
   );
 }
-export default CustomerOrders;
+export default Orders;
