@@ -37,13 +37,11 @@ function OrderDetailsTable() {
 
   return (
     <div>
-      {console.log(ordersDetails)}
       <div>
-        <label htmlFor={ `${part}element-order-details-label-order-id` }>
+        <label htmlFor={ `${part}element-user-table-item-number-${index}` }>
           Pedido:
           {' '}
           <p
-            id={ `${part}element-order-details-label-order-id` }
             data-testid={ `${part}element-order-details-label-order-id` }
           >
             {saleId}

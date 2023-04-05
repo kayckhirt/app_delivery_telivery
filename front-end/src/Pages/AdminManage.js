@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import NavBar from '../Components/NavBar';
 import RegisterUserForm from '../Components/RegisterUserForm';
+import ClientsTable from '../Components/ClientsTable';
+
 import api from '../services/api';
 import useForm from '../Hooks/UseForm';
 
@@ -65,6 +67,7 @@ function AdminManage() {
         onInputChange={ onInputChange }
         btnIsDisabled={ btnIsDisabled }
       />
+      <ClientsTable />
     </div>
   );
 }
