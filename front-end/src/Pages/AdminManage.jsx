@@ -18,7 +18,7 @@ function AdminManage() {
     role: 'customer',
   });
 
-  const [btnIsDisabled, setBtnIsDisabled] = useState(true);
+  const [isDisabledBtn, setisDisabledBtn] = useState(true);
   const [isNotFound, setIsNotFound] = useState(false);
 
   const verifyBtn = useCallback(() => {
@@ -27,12 +27,12 @@ function AdminManage() {
     const verifyPassword = password.length > MIN_LENGTH_PASSWORD;
     const verifyName = name.length > MIN_LENGTH_NAME;
     const verifyRegister = verifyEmail && verifyPassword && verifyName;
-    setBtnIsDisabled(!verifyRegister);
+    setisDisabledBtn(!verifyRegister);
   }, [formData]);
 
   useEffect(() => {
     verifyBtn();
-  }, [btnIsDisabled, verifyBtn]);
+  }, [isDisabledBtn, verifyBtn]);
 
   const handleRegisterBtn = async () => {
     try {
@@ -65,7 +65,7 @@ function AdminManage() {
         handleRegisterBtn={ handleRegisterBtn }
         formData={ formData }
         onInputChange={ onInputChange }
-        btnIsDisabled={ btnIsDisabled }
+        isDisabledBtn={ isDisabledBtn }
       />
       <ClientsTable />
     </div>

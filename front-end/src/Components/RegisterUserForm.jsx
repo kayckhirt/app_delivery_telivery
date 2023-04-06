@@ -6,7 +6,7 @@ function RegisterUserForm(
     onInputChange,
     formData: { name, email, password },
     handleRegisterBtn,
-    btnIsDisabled,
+    isDisabledBtn,
   },
 ) {
   return (
@@ -63,7 +63,7 @@ function RegisterUserForm(
       <button
         data-testid="admin_manage__button-register"
         type="button"
-        disabled={ btnIsDisabled }
+        disabled={ isDisabledBtn }
         onClick={ handleRegisterBtn }
       >
         CADASTRAR
