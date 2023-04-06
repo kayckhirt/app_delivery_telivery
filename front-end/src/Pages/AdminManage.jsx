@@ -9,17 +9,16 @@ import useForm from '../Hooks/UseForm';
 const MIN_LENGTH_PASSWORD = 5;
 const MIN_LENGTH_NAME = 11;
 const EMAIL_REGEX = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
-const intialFormData = {
-  name: '',
-  email: '',
-  password: '',
-  role: 'customer',
-};
 
 function AdminManage() {
-  const { formData, setFormData, onInputChange } = useForm(intialFormData);
+  const { formData, setFormData, onInputChange } = useForm({
+    name: '',
+    email: '',
+    password: '',
+    role: 'customer',
+  });
 
-  const [isDisabledBtn, setisDisabledBtn] = useState(true);
+  const [btnIsDisabled, setBtnIsDisabled] = useState(true);
   const [isNotFound, setIsNotFound] = useState(false);
 
   const verifyBtn = useCallback(() => {
@@ -28,18 +27,23 @@ function AdminManage() {
     const verifyPassword = password.length > MIN_LENGTH_PASSWORD;
     const verifyName = name.length > MIN_LENGTH_NAME;
     const verifyRegister = verifyEmail && verifyPassword && verifyName;
-    setisDisabledBtn(!verifyRegister);
+    setBtnIsDisabled(!verifyRegister);
   }, [formData]);
 
   useEffect(() => {
     verifyBtn();
-  }, [isDisabledBtn, verifyBtn]);
+  }, [btnIsDisabled, verifyBtn]);
 
   const handleRegisterBtn = async () => {
     try {
       const { email, password, name, role } = formData;
-      await api.post('/register', { name, email, password, role });
-      setFormData(intialFormData);
+      await api.post('admin/manage', { name, email, password, role });
+      setFormData({
+        email: '',
+        password: '',
+        name: '',
+        role: '',
+      });
     } catch (err) {
       console.error(err);
       setIsNotFound(true);
@@ -61,7 +65,7 @@ function AdminManage() {
         handleRegisterBtn={ handleRegisterBtn }
         formData={ formData }
         onInputChange={ onInputChange }
-        isDisabledBtn={ isDisabledBtn }
+        btnIsDisabled={ btnIsDisabled }
       />
       <ClientsTable />
     </div>
