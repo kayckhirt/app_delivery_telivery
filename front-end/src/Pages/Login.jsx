@@ -61,20 +61,6 @@ function Login() {
       setFormData({ email: '', password: '', name: '' });
       setBtnIsDisabled(true);
       const { role } = data;
-      // console.log(role);
-      // let endPoint = '';
-      // switch (role) {
-      // case 'administrator':
-      //   endPoint = '/admin/manage';
-      //   break;
-      // case 'seller':
-      //   endPoint = '/seller/orders';
-      //   break;
-      // default:
-      //   endPoint = '/customer/products';
-      //   break;
-      // }
-      // history.push(endPoint);
       loginRedirect(history, role);
     } catch (err) {
       console.error(err);
