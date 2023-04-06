@@ -25,7 +25,7 @@ function Login() {
     if (userData) {
       history.push('/customer/products');
     }
-  }, []);
+  }, [history]);
 
   const verifyBtn = useCallback(() => {
     const { email, password, name } = formData;
