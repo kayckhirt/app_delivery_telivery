@@ -9,14 +9,15 @@ import useForm from '../Hooks/UseForm';
 const MIN_LENGTH_PASSWORD = 5;
 const MIN_LENGTH_NAME = 11;
 const EMAIL_REGEX = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
+const intialFormData = {
+  name: '',
+  email: '',
+  password: '',
+  role: 'customer',
+};
 
 function AdminManage() {
-  const { formData, setFormData, onInputChange } = useForm({
-    name: '',
-    email: '',
-    password: '',
-    role: 'customer',
-  });
+  const { formData, setFormData, onInputChange } = useForm(intialFormData);
 
   const [isDisabledBtn, setisDisabledBtn] = useState(true);
   const [isNotFound, setIsNotFound] = useState(false);
@@ -38,12 +39,7 @@ function AdminManage() {
     try {
       const { email, password, name, role } = formData;
       await api.post('/register', { name, email, password, role });
-      setFormData({
-        email: '',
-        password: '',
-        name: '',
-        role: '',
-      });
+      setFormData(intialFormData);
     } catch (err) {
       console.error(err);
       setIsNotFound(true);
