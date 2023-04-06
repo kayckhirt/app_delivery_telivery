@@ -29,6 +29,15 @@ function OrderDetailsTable() {
     }
   }, [id]);
 
+  const updateStatus = async (status) => {
+    try {
+      await api.patch(`/sales/status/${id}`, { status });
+      getOrderDetails();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
     getOrderDetails();
   }, [getOrderDetails]);
@@ -70,12 +79,13 @@ function OrderDetailsTable() {
             {ordersDetails.status}
           </p>
         </label>
-        { page === 'costumer'
+        { page === 'customer'
           ? (
             <button
               type="button"
               data-testid={ `${part}button-delivery-check` }
-              disabled={ ordersDetails.status !== 'Em Transito' }
+              disabled={ ordersDetails.status !== 'Em Trânsito' }
+              onClick={ () => updateStatus('Entregue') }
             >
               MARCAR COMO ENTREGUE
             </button>)
@@ -85,15 +95,18 @@ function OrderDetailsTable() {
                 type="button"
                 data-testid={ `${part}button-preparing-check` }
                 disabled={ ordersDetails.status !== 'Pendente' }
+                onClick={ () => updateStatus('Preparando') }
               >
-                Preparar Pedido
+                PREPARAR PEDIDO
               </button>
               <button
                 type="button"
                 data-testid={ `${part}button-dispatch-check` }
                 disabled={ ordersDetails.status !== 'Preparando' }
+                onClick={ () => updateStatus('Em Trânsito') }
+
               >
-                Preparar Pedido
+                SAIU PARA ENTREGA
               </button>
             </>
           )}

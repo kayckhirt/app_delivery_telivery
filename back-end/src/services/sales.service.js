@@ -27,7 +27,7 @@ const createSale = async ({
     totalPrice,
     deliveryAddress,
     deliveryNumber,
-    saleDate: sequelize.fn('NOW'),
+    saleDate: new Date(),
     status: 'Pendente',
   });
   return newSale;
@@ -60,10 +60,16 @@ const getSaleDetails = async (saleId) => {
   return formatSaleDetails(sale, products, seller, salesProducts);
 };
 
+const updateStatus = async ({ id, status }) => {
+  const newSale = await Sale.update({ status }, { where: { id } });
+  return newSale;
+};
+
 module.exports = {
   getById,
   createSaleAndSaleProduct,
   getAll,
   getSalesById,
   getSaleDetails,
+  updateStatus,
 };

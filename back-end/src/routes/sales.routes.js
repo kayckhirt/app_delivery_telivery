@@ -8,5 +8,6 @@ router.get('/sales', salesService.getAll);
 router.get('/sales/:id', salesService.getById);
 router.get('/sales/details/:saleId', salesService.getSaleDetails);
 router.post('/sales', salesService.createSaleAndSaleProduct);
+router.patch('/sales/status/:id', salesService.updateStatus);
 
 module.exports = router;

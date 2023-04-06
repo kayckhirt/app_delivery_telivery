@@ -7,12 +7,13 @@ import api from '../services/api';
 function Orders() {
   const [orders, setOrders] = useState([]);
 
-  const userOrSeller = (role) => (role === 'costumer' ? 'userId' : 'sellerId');
+  const userOrSeller = (role) => (role === 'customer' ? 'userId' : 'sellerId');
 
   const getOrders = useCallback(async () => {
     try {
       const { id, role } = getToken();
-      const { data } = await api.get(`/sales/orders/?${userOrSeller(role)}=${id}`);
+      const idTag = userOrSeller(role);
+      const { data } = await api.get(`/sales/orders/?${idTag}=${id}`);
       setOrders(data);
     } catch (err) {
       console.error(err);
