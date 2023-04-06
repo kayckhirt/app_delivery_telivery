@@ -37,7 +37,7 @@ function AdminManage() {
   const handleRegisterBtn = async () => {
     try {
       const { email, password, name, role } = formData;
-      await api.post('admin/manage', { name, email, password, role });
+      await api.post('/register', { name, email, password, role });
       setFormData({
         email: '',
         password: '',
