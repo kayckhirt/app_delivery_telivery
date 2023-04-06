@@ -24,7 +24,8 @@ function Login() {
   useEffect(() => {
     const userData = getToken();
     if (userData) {
-      history.push('/customer/products');
+      const { role } = data;
+      loginRedirect(history, role);
     }
   }, [history]);
 
