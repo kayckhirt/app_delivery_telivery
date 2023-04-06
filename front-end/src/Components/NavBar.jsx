@@ -15,11 +15,13 @@ function NavBar() {
   }, [history, updateCartValue]);
 
   const myOrders = () => {
-    history.push('/customer/orders');
+    const { role } = getToken();
+    history.push(`/${role}/orders`);
   };
 
   const products = () => {
-    history.push('/customer/products');
+    const { role } = getToken();
+    history.push(`/${role}/products`);
   };
 
   useEffect(() => {

@@ -1,4 +1,3 @@
-const sequelize = require('sequelize');
 const { Sale, SalesProduct, Product, User } = require('../database/models');
 const userService = require('./users.service');
 const { CustomError } = require('../errors/custom.error');
