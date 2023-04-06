@@ -4,6 +4,7 @@ import CommonForm from '../Components/CommonForm';
 import api from '../services/api';
 import { getToken, saveToken } from '../utils/localStorage';
 import useForm from '../Hooks/UseForm';
+import loginRedirect from '../utils/loginRedirect';
 
 const MIN_LENGTH_PASSWORD = 5;
 const MIN_LENGTH_NAME = 11;
@@ -23,7 +24,8 @@ function Login() {
   useEffect(() => {
     const userData = getToken();
     if (userData) {
-      history.push('/customer/products');
+      const { role } = data;
+      loginRedirect(history, role);
     }
   }, [history]);
 
@@ -59,20 +61,7 @@ function Login() {
       setFormData({ email: '', password: '', name: '' });
       setBtnIsDisabled(true);
       const { role } = data;
-      console.log(role);
-      let endPoint = '';
-      switch (role) {
-      case 'administrator':
-        endPoint = '/admin/manage';
-        break;
-      case 'seller':
-        endPoint = '/seller/orders';
-        break;
-      default:
-        endPoint = '/customer/products';
-        break;
-      }
-      history.push(endPoint);
+      loginRedirect(history, role);
     } catch (err) {
       console.error(err);
       setIsNotFound(true);

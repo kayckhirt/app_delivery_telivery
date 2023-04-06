@@ -13,7 +13,6 @@ function RegisterUserForm(
     <form>
       <label htmlFor="name">
         Nome:
-        {' '}
         <input
           type="text"
           id="name"
@@ -26,7 +25,6 @@ function RegisterUserForm(
       </label>
       <label htmlFor="email">
         Email:
-        {' '}
         <input
           type="email"
           id="email"
@@ -39,7 +37,6 @@ function RegisterUserForm(
       </label>
       <label htmlFor="password">
         Senha:
-        {' '}
         <input
           type="password"
           id="password"
@@ -52,7 +49,6 @@ function RegisterUserForm(
       </label>
       <label htmlFor="select-type">
         Tipo:
-        {' '}
         <select
           name="role"
           id="select-type"
