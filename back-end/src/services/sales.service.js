@@ -8,7 +8,11 @@ const getAll = async () => Sale.findAll();
 
 const getById = async (saleId) => Sale.findByPk(saleId);
 
-const getByUserId = async (userId) => Sale.findAll({ where: { userId } });
+const getSalesById = async ({ userId, sellerId }) => {
+  if (userId && sellerId) { throw CustomError('400', 'Só um Id deve ser fornecido'); }
+ const filter = userId ? { where: { userId } } : { where: { sellerId } };
+ return Sale.findAll(filter); 
+};
 
 const createSale = async ({
   userId,
@@ -56,10 +60,16 @@ const getSaleDetails = async (saleId) => {
   return formatSaleDetails(sale, products, seller, salesProducts);
 };
 
+const updateStatus = async ({ id, status }) => {
+  const newSale = await Sale.update({ status }, { where: { id } });
+  return newSale;
+};
+
 module.exports = {
   getById,
   createSaleAndSaleProduct,
   getAll,
-  getByUserId,
+  getSalesById,
   getSaleDetails,
+  updateStatus,
 };

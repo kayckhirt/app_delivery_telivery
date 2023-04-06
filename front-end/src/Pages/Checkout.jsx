@@ -40,7 +40,7 @@ function Checkout() {
     }
   };
 
-  const fetchStudents = useCallback(async () => {
+  const fetchSellers = useCallback(async () => {
     try {
       const { data } = await api.get('/users/sellers');
       setSellers(data);
@@ -50,8 +50,8 @@ function Checkout() {
   }, []);
 
   useEffect(() => {
-    fetchStudents();
-  }, []);
+    fetchSellers();
+  }, [fetchSellers]);
 
   const handleRem = (product) => removeProduct(product);
 

@@ -7,10 +7,13 @@ import api from '../services/api';
 function Orders() {
   const [orders, setOrders] = useState([]);
 
+  const userOrSeller = (role) => (role === 'customer' ? 'userId' : 'sellerId');
+
   const getOrders = useCallback(async () => {
     try {
-      const { id } = getToken();
-      const { data } = await api.post('/sales/orders/', { userId: id });
+      const { id, role } = getToken();
+      const idTag = userOrSeller(role);
+      const { data } = await api.get(`/sales/orders/?${idTag}=${id}`);
       setOrders(data);
     } catch (err) {
       console.error(err);
@@ -24,13 +27,22 @@ function Orders() {
     <div>
       <NavBar />
       {
-        orders.map(({ id, status, saleDate, totalPrice }) => (
+        orders.map(({
+          id,
+          status,
+          saleDate,
+          totalPrice,
+          deliveryAddress,
+          deliveryNumber,
+        }) => (
           <OrdersCard
             key={ id }
             id={ id }
             status={ status }
             saleDate={ saleDate }
             totalPrice={ totalPrice }
+            deliveryAddress={ deliveryAddress }
+            deliveryNumber={ deliveryNumber }
           />
         ))
       }
