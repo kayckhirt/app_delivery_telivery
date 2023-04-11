@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Card, TextField } from '@mui/material';
+import { Button, Card, TextField, Typography } from '@mui/material';
 import CartContext from '../Context/CartContext';
 
 function ProductCard({ id, price, urlImage, name }) {
@@ -58,10 +58,24 @@ function ProductCard({ id, price, urlImage, name }) {
         src={ urlImage }
         alt="product_image"
       />
-      <p data-testid={ `customer_products__element-card-price-${id}` }>
-        {`R$${price.replace('.', ',')}`}
-      </p>
-      <p data-testid={ `customer_products__element-card-title-${id}` }>{name}</p>
+      <Typography
+        data-testid={ `customer_products__element-card-price-${id}` }
+        variant="h6"
+        sx={ {
+          fontWeight: 'bold',
+        } }
+      >
+        {`R$ ${price.replace('.', ',')}`}
+      </Typography>
+      <Typography
+        data-testid={ `customer_products__element-card-title-${id}` }
+        variant="h6"
+        sx={ {
+          fontWeight: 'bold',
+        } }
+      >
+        {name}
+      </Typography>
 
       <div>
         <Button
