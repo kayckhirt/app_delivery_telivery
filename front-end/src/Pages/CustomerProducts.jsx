@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Box, Button, Typography } from '@mui/material';
 import Loading from '../Components/Loading';
 import NavBar from '../Components/NavBar';
 import ProductCard from '../Components/ProductCard';
@@ -18,31 +19,74 @@ function CustomerProducts() {
   return (
     <>
       <NavBar />
-      <h3>CustomerProducts</h3>
-      <div>
-        <button
+      <Typography
+        sx={ {
+          fontSize: {
+            xs: '2em',
+            md: '3em',
+          },
+          fontFamily: 'Chakra Petch',
+        } }
+        gutterBottom
+        color="#000000"
+        textAlign="center"
+      >
+        Produtos
+
+      </Typography>
+      <Box
+        sx={ {
+          position: {
+            xs: 'static',
+            md: 'static',
+          },
+          left: {
+            xs: '0%',
+            md: '80%',
+          },
+        } }
+      >
+        <Button
           disabled={ totalCartValue === 0 }
           onClick={ handleRedirect }
           type="button"
           data-testid="customer_products__button-cart"
+          variant="contained"
         >
-          {totalCartValue.toFixed(2).replace('.', ',')}
-
-        </button>
-        <p
-          data-testid="customer_products__checkout-bottom-value"
-        >
-          {totalCartValue.toFixed(2).replace('.', ',')}
-        </p>
-      </div>
-      {products.map(({ id, price, urlImage, name }) => (
-        <ProductCard
-          key={ `${name}${id}` }
-          id={ id }
-          price={ price }
-          urlImage={ urlImage }
-          name={ name }
-        />))}
+          {`Ver Carrinho: ${totalCartValue.toFixed(2).replace('.', ',')}`}
+        </Button>
+      </Box>
+      <Box
+        sx={ {
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          background: '#FBAA10',
+        } }
+      >
+        {products.map(({ id, urlImage, price, name }) => (
+          <Box
+            key="true"
+            sx={ {
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              padding: '3px',
+            } }
+          >
+            <ProductCard
+              key={ `${name}${id}` }
+              id={ id }
+              urlImage={ urlImage }
+              name={ name }
+              price={ price }
+            />
+          </Box>))}
+      </Box>
     </>
   );
 }

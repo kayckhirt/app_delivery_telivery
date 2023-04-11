@@ -1,8 +1,22 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import CartContext from '../Context/CartContext';
+import { Button, Box } from '@mui/material';
+// import IconButton from '@mui/material/IconButton';
+// import Menu from '@mui/material/Menu';
+// import MenuItem from '@mui/material/MenuItem';
+// import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { clearSession, getToken } from '../utils/localStorage';
+import CartContext from '../Context/CartContext';
+import logo from '../images/bitmap.png';
+
 // import AppContext from '../Context/AppContext';
+
+// const options = [
+//   'Produtos',
+//   'Meus Pedidos',
+//   { user },
+//   'Sair',
+// ];
 
 function NavBar() {
   const history = useHistory();
@@ -31,35 +45,56 @@ function NavBar() {
   }, [logout]);
 
   return (
-    <nav>
-      <button
+    <Box
+      sx={ {
+        display: 'flex',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        flexDirection: 'row',
+        minHeight: '10vh',
+        width: '100%',
+        bgcolor: '#BB8220',
+      } }
+    >
+      <img src={ logo } alt='logo do app "O trago da velha"' width="100px" />
+      <Button
         data-testid="customer_products__element-navbar-link-products"
         type="button"
         onClick={ products }
+        variant="contained"
+        sx={ {
+          width: {
+            xs: '40px',
+            md: '100px',
+          },
+        } }
       >
         Produtos
-      </button>
-      <button
+      </Button>
+      <Button
         data-testid="customer_products__element-navbar-link-orders"
         type="button"
         onClick={ myOrders }
+        variant="contained"
       >
         Meus Pedidos
-      </button>
-      <button
+      </Button>
+      <Button
         data-testid="customer_products__element-navbar-user-full-name"
         type="button"
+        variant="contained"
       >
         {user}
-      </button>
-      <button
+      </Button>
+      <Button
         data-testid="customer_products__element-navbar-link-logout"
         type="button"
         onClick={ logout }
+        variant="contained"
       >
         Sair
-      </button>
-    </nav>
+      </Button>
+    </Box>
   );
 }
 

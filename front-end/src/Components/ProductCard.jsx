@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
+import { Button, Card, TextField } from '@mui/material';
 import CartContext from '../Context/CartContext';
 
 function ProductCard({ id, price, urlImage, name }) {
@@ -40,43 +41,69 @@ function ProductCard({ id, price, urlImage, name }) {
   }, [getQuantity, id]);
 
   return (
-    <article>
-      <p data-testid={ `customer_products__element-card-price-${id}` }>
-        {price.replace('.', ',')}
-      </p>
+    <Card
+      sx={ {
+        background: 'white',
+        padding: '2px',
+        color: 'black',
+        fontWeight: 'bold',
+        textAlign: 'center',
+        boxShadow: '1px 1px 3px black',
+      } }
+    >
       <img
         width={ 100 }
+        height={ 100 }
         data-testid={ `customer_products__img-card-bg-image-${id}` }
         src={ urlImage }
         alt="product_image"
       />
+      <p data-testid={ `customer_products__element-card-price-${id}` }>
+        {`R$${price.replace('.', ',')}`}
+      </p>
       <p data-testid={ `customer_products__element-card-title-${id}` }>{name}</p>
 
       <div>
-        <button
+        <Button
           onClick={ handleAddOne }
           type="button"
           data-testid={ `customer_products__button-card-add-item-${id}` }
+          variant="outlined"
+          sx={ {
+            height: '56px',
+            fontSize: '2em',
+            background: '#FBAA10',
+          } }
         >
           +
-        </button>
+        </Button>
 
-        <input
+        <TextField
           onChange={ handleInput }
           name={ id }
           value={ localQuantity }
           data-testid={ `customer_products__input-card-quantity-${id}` }
+          sx={ {
+            fontSize: '2em',
+            background: '#FBAA10',
+          } }
         />
 
-        <button
+        <Button
           onClick={ handleRemoveOne }
           type="button"
           data-testid={ `customer_products__button-card-rm-item-${id}` }
+          variant="outlined"
+          sx={ {
+            height: '56px',
+            fontSize: '2em',
+            background: '#FBAA10',
+          } }
         >
           -
-        </button>
+        </Button>
       </div>
-    </article>
+    </Card>
   );
 }
 
