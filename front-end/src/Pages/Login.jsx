@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Box, Typography } from '@mui/material';
 import CommonForm from '../Components/CommonForm';
 import api from '../services/api';
 import { getToken, saveToken } from '../utils/localStorage';
 import useForm from '../Hooks/UseForm';
+import logo from '../images/bitmap.png';
 
 const MIN_LENGTH_PASSWORD = 5;
 const MIN_LENGTH_NAME = 11;
@@ -80,8 +82,30 @@ function Login() {
   };
 
   return (
-    <div>
-      <h1>NOMEDOAPP</h1>
+    <Box
+      sx={ { display: 'flex',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        flexDirection: 'column',
+        minHeight: '100vh',
+        width: '100%',
+      } }
+    >
+      <img src={ logo } alt='logo do app "O trago da velha"' width="250px" />
+      <Typography
+        sx={ {
+          fontSize: {
+            xs: '4em',
+            md: '7em',
+          },
+          fontFamily: 'Chakra Petch',
+        } }
+        gutterBottom
+        color="#000000"
+      >
+        Têlivery
+
+      </Typography>
       <CommonForm
         formData={ formData }
         // setFormData={ setFormData }
@@ -91,7 +115,7 @@ function Login() {
         btnIsDisabled={ btnIsDisabled }
         handleLoginButton={ handleLoginButton }
       />
-    </div>
+    </Box>
   );
 }
 
