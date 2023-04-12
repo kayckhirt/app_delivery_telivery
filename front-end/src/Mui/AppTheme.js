@@ -8,8 +8,12 @@ const theme = createTheme({
     },
     background: {
       default: '#FBAA10',
-      paper: '#212121',
+      // paper: '#212121',
     },
+    // action: {
+    //   hover: '#E8F0FE',
+    //   selected: '#E8F0FE',
+    // },
   },
   components: {
     MuiButton: {

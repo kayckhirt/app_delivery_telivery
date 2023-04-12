@@ -21,6 +21,7 @@ import logo from '../images/bitmap.png';
 function NavBar() {
   const history = useHistory();
   const [user, setUser] = useState('');
+  const [userRole, setUserRole] = useState('');
   const { updateCartValue } = useContext(CartContext);
   const logout = useCallback(() => {
     clearSession();
@@ -42,6 +43,7 @@ function NavBar() {
     const token = getToken();
     if (!token) logout();
     setUser(token.name);
+    setUserRole(token.role);
   }, [logout]);
 
   return (
@@ -70,20 +72,22 @@ function NavBar() {
           bgcolor: '#BB8220',
         } }
       >
-        <Button
-          data-testid="customer_products__element-navbar-link-products"
-          type="button"
-          onClick={ products }
-          variant="contained"
-          sx={ {
-            width: {
-              xs: '40px',
-              md: '100px',
-            },
-          } }
-        >
-          Produtos
-        </Button>
+        {userRole !== 'seller' && (
+          <Button
+            data-testid="customer_products__element-navbar-link-products"
+            type="button"
+            onClick={ products }
+            variant="contained"
+            sx={ {
+              width: {
+                xs: '40px',
+                md: '100px',
+              },
+            } }
+          >
+            Produtos
+          </Button>
+        )}
         <Button
           data-testid="customer_products__element-navbar-link-orders"
           type="button"

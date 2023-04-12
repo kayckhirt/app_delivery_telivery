@@ -57,7 +57,7 @@ function Login() {
         isLogin ? '/login' : '/register',
         { email, password, name, role: 'customer' },
       );
-      saveToken(data);
+      saveToken(isLogin ? data : { email, password, name, role: 'customer' });
       setFormData({ email: '', password: '', name: '' });
       setBtnIsDisabled(true);
       const { role } = data;
