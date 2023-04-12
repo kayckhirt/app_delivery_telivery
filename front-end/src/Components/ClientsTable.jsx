@@ -37,7 +37,6 @@ function ClientsTable() {
 
   return (
     <div>
-      {console.log('aaa')}
       <table>
         <thead>
           <tr>
