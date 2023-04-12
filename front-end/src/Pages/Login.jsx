@@ -91,7 +91,7 @@ function Login() {
         width: '100%',
       } }
     >
-      <img src={ logo } alt='logo do app "O trago da velha"' width="250px" />
+      <img src={ logo } alt='logo do app "Têlivery"' width="250px" />
       <Typography
         sx={ {
           fontSize: {

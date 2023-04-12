@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
+import { Button, Card, TextField, Typography } from '@mui/material';
 import CartContext from '../Context/CartContext';
 
 function ProductCard({ id, price, urlImage, name }) {
@@ -40,43 +41,84 @@ function ProductCard({ id, price, urlImage, name }) {
   }, [getQuantity, id]);
 
   return (
-    <article>
-      <p data-testid={ `customer_products__element-card-price-${id}` }>
-        {price.replace('.', ',')}
-      </p>
+    <Card
+      sx={ {
+        background: 'white',
+        padding: '2px',
+        color: 'black',
+        fontWeight: 'bold',
+        textAlign: 'center',
+        boxShadow: '1px 1px 3px black',
+      } }
+    >
       <img
         width={ 100 }
+        height={ 100 }
         data-testid={ `customer_products__img-card-bg-image-${id}` }
         src={ urlImage }
         alt="product_image"
       />
-      <p data-testid={ `customer_products__element-card-title-${id}` }>{name}</p>
+      <Typography
+        data-testid={ `customer_products__element-card-price-${id}` }
+        variant="h6"
+        sx={ {
+          fontWeight: 'bold',
+        } }
+      >
+        {`R$ ${price.replace('.', ',')}`}
+      </Typography>
+      <Typography
+        data-testid={ `customer_products__element-card-title-${id}` }
+        variant="h6"
+        sx={ {
+          fontWeight: 'bold',
+        } }
+      >
+        {name}
+      </Typography>
 
       <div>
-        <button
-          onClick={ handleAddOne }
+        <Button
+          onClick={ handleRemoveOne }
           type="button"
-          data-testid={ `customer_products__button-card-add-item-${id}` }
+          data-testid={ `customer_products__button-card-rm-item-${id}` }
+          variant="outlined"
+          sx={ {
+            height: '56px',
+            fontSize: '2em',
+            background: '#181654',
+            color: 'white',
+          } }
         >
-          +
-        </button>
+          -
+        </Button>
 
-        <input
+        <TextField
           onChange={ handleInput }
           name={ id }
           value={ localQuantity }
           data-testid={ `customer_products__input-card-quantity-${id}` }
+          sx={ {
+            fontSize: '2em',
+            background: '#BB8220',
+          } }
         />
-
-        <button
-          onClick={ handleRemoveOne }
+        <Button
+          onClick={ handleAddOne }
           type="button"
-          data-testid={ `customer_products__button-card-rm-item-${id}` }
+          data-testid={ `customer_products__button-card-add-item-${id}` }
+          variant="outlined"
+          sx={ {
+            height: '56px',
+            fontSize: '2em',
+            background: '#181654',
+            color: 'white',
+          } }
         >
-          -
-        </button>
+          +
+        </Button>
       </div>
-    </article>
+    </Card>
   );
 }
 

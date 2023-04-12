@@ -21,29 +21,6 @@ const theme = createTheme({
           },
         },
       ],
-      // styleOverrides: {
-      //   root: ({ ownerState }) => {
-      //     switch (ownerState.variant) {
-      //     case 'contained':
-      //       return {
-      //         '&.Mui-disabled': {
-      //           // background: 'green',
-      //           border: '2px solid #181654',
-      //           // color: 'black',
-      //         },
-      //       };
-      //     case 'outlined':
-      //       return {
-      //         '&.Mui-disabled': {
-      //           // background: 'red',
-      //           // color: 'black',
-      //           border: '2px solid #E4572E',
-      //         },
-      //       };
-      //     default:
-      //     }
-      //   },
-      // },
     },
   },
   typography: {

@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { Typography } from '@mui/material';
 import NavBar from '../Components/NavBar';
 import RegisterUserForm from '../Components/RegisterUserForm';
 import ClientsTable from '../Components/ClientsTable';
@@ -52,7 +53,9 @@ function AdminManage() {
   return (
     <div>
       <NavBar />
-      Criar novo usuário
+      <Typography variant="h4" textAlign="center" margin="20px">
+        Criar novo usuário
+      </Typography>
       {isNotFound
         && (
           <p

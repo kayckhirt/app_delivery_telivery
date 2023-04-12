@@ -1,5 +1,19 @@
+/* eslint-disable max-lines */
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Button,
+  FormGroup,
+  InputLabel,
+  MenuItem,
+  Select,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TextField,
+  Typography } from '@mui/material';
 import useForm from '../Hooks/UseForm';
 import NavBar from '../Components/NavBar';
 import CartContext from '../Context/CartContext';
@@ -59,60 +73,73 @@ function Checkout() {
   return (
     <main>
       <NavBar />
-      <h3>Finalizar Pedido</h3>
-      <section>
-        <table>
-          <thead>
-            <tr>
+      <Typography
+        variant="h3"
+        textAlign="center"
+      >
+        Meu carrinho
+      </Typography>
+      <TableContainer>
+        <Table sx={ { minWidth: '400px' } }>
+          <TableHead>
+            <TableRow>
               {fields.map((field) => (
-                <td key={ field }>{field}</td>
+                <TableCell
+                  key={ field }
+                  sx={ { fontSize: '1.5em' } }
+                >
+                  {field}
+
+                </TableCell>
               ))}
-            </tr>
-          </thead>
-          <tbody>
+            </TableRow>
+          </TableHead>
+          <TableBody>
             {productsOnCart
               .map(({ productId, name, quantity, unitPrice, subTotal }, id) => (
-                <tr key={ productId }>
-                  <td
+                <TableRow key={ productId }>
+                  <TableCell
                     data-testid={
                       `customer_checkout__element-order-table-item-number-${id}`
                     }
+                    sx={ { fontSize: '1.3em' } }
                   >
                     {id + 1}
-                  </td>
-                  <td
+                  </TableCell>
+                  <TableCell
                     data-testid={
                       `customer_checkout__element-order-table-name-${id}`
                     }
+                    sx={ { fontSize: '1.3em' } }
                   >
                     {name}
-                  </td>
-                  <td
+                  </TableCell>
+                  <TableCell
                     data-testid={
                       `customer_checkout__element-order-table-quantity-${id}`
                     }
+                    sx={ { fontSize: '1.3em' } }
                   >
                     {quantity}
-                  </td>
-                  <td
+                  </TableCell>
+                  <TableCell
                     data-testid={
                       `customer_checkout__element-order-table-unit-price-${id}`
                     }
+                    sx={ { fontSize: '1.3em' } }
                   >
                     {unitPrice.replace('.', ',')}
-
-                  </td>
-                  <td
+                  </TableCell>
+                  <TableCell
                     data-testid={
                       `customer_checkout__element-order-table-sub-total-${id}`
                     }
-
+                    sx={ { fontSize: '1.3em' } }
                   >
                     {subTotal.toFixed(2).replace('.', ',')}
-
-                  </td>
-                  <td>
-                    <button
+                  </TableCell>
+                  <TableCell>
+                    <Button
                       onClick={
                         () => (
                           handleRem({ productId, name, quantity, unitPrice, subTotal }))
@@ -121,61 +148,131 @@ function Checkout() {
                         `customer_checkout__element-order-table-remove-${id}`
                       }
                       type="button"
+                      variant="outlined"
+                      sx={ {
+                        background: '#181654',
+                        color: 'white',
+                      } }
                     >
                       Remover
-                    </button>
-
-                  </td>
-                </tr>
+                    </Button>
+                  </TableCell>
+                </TableRow>
               ))}
-          </tbody>
-        </table>
-        <p
+          </TableBody>
+        </Table>
+        <Typography
           data-testid="customer_checkout__element-order-total-price"
+          variant="h5"
+          textAlign="right"
+          sx={ {
+            marginRight: '50px',
+            fontWeight: 'Bold',
+          } }
         >
-          {totalCartValue.toFixed(2).replace('.', ',')}
-
-        </p>
-      </section>
-
-      <form onSubmit={ handleSubmit }>
-        <label htmlFor="selectSeller">
+          {`TOTAL R$ ${totalCartValue.toFixed(2).replace('.', ',')}`}
+        </Typography>
+      </TableContainer>
+      <Typography
+        variant="h4"
+        textAlign="center"
+        sx={ {
+          marginBottom: '70px',
+        } }
+      >
+        Detalhes e Endereço para entrega
+      </Typography>
+      <FormGroup
+        sx={ {
+          width: '100vw',
+          display: 'flex',
+          justifyContent: 'space-around',
+          alignItems: 'center',
+          flexDirection: 'row',
+          alignSelf: '',
+        } }
+      >
+        <InputLabel
+          htmlFor="selectSeller"
+          sx={ { fontSize: '1.5em',
+            display: 'flex',
+            color: 'black',
+            marginLeft: '5px',
+            justifyContent: '',
+          } }
+        >
           Vendedor
-          <select
+          <Select
             id="selectSeller"
             name="sellerId"
             onChange={ onSelectChange }
             data-testid="customer_checkout__select-seller"
+            sx={ {
+              background: 'white',
+            } }
           >
             {
               sellers.map(({ id, name }) => (
-                <option key={ name } value={ id }>
+                <MenuItem
+                  key={ name }
+                  value={ id }
+                  sx={ { background: 'white' } }
+                >
                   {name}
-                </option>))
+                </MenuItem>))
             }
-
-          </select>
-        </label>
-        <input
-          name="deliveryAddress"
-          onChange={ onInputChange }
-          type="text"
-          data-testid="customer_checkout__input-address"
-        />
-        <input
-          name="deliveryNumber"
-          onChange={ onInputChange }
-          type="text"
-          data-testid="customer_checkout__input-address-number"
-        />
-        <button
+          </Select>
+        </InputLabel>
+        <InputLabel
+          htmlFor="address"
+          sx={ { fontSize: '1.5em',
+            display: 'flex',
+            color: 'black',
+            marginLeft: '5px' } }
+        >
+          Endereço
+          <TextField
+            id="address"
+            name="deliveryAddress"
+            onChange={ onInputChange }
+            type="text"
+            data-testid="customer_checkout__input-address"
+            sx={ {
+              background: 'white',
+            } }
+          />
+        </InputLabel>
+        <InputLabel
+          htmlFor="numberAddress"
+          sx={ { fontSize: '1.5em',
+            color: 'black',
+            marginLeft: '5px' } }
+        >
+          Número
+          <TextField
+            id="numberAddress"
+            name="deliveryNumber"
+            onChange={ onInputChange }
+            type="text"
+            data-testid="customer_checkout__input-address-number"
+            sx={ {
+              background: 'white',
+            } }
+          />
+        </InputLabel>
+        <Button
           type="submit"
           data-testid="customer_checkout__button-submit-order"
+          variant="outlined"
+          onClick={ handleSubmit }
+          sx={ {
+            background: '#181654',
+            color: 'white',
+          } }
         >
           Finalizar Pedido
-        </button>
-      </form>
-
+        </Button>
+      </FormGroup>
     </main>
   );
 }

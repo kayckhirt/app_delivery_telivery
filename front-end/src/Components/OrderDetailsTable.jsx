@@ -2,6 +2,16 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 
+import { Box,
+  Button,
+  Typography,
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+} from '@mui/material';
 import api from '../services/api';
 import formatDate from '../utils/formatDate';
 
@@ -46,60 +56,66 @@ function OrderDetailsTable() {
   const part = `${page}_order_details__`;
   return (
     <div>
-      <div>
-        <label htmlFor={ `${part}element-user-table-item-number-${id}` }>
-          Pedido:
-          <p
-            data-testid={ `${part}element-order-details-label-order-id` }
-          >
-            {id}
-          </p>
-        </label>
-        <label htmlFor={ `${part}element-order-details-label-seller-name` }>
-          Vendedor:
-          <p
-            id={ `${part}element-order-details-label-seller-name` }
-            data-testid={ `${part}element-order-details-label-seller-name` }
-          >
-            {ordersDetails.seller}
-          </p>
-        </label>
-        Data do pedido:
-        <p data-testid={ `${part}element-order-details-label-order-date` }>
-          {ordersDetails.saleDate && formatDate(ordersDetails.saleDate)}
-        </p>
-        <label
-          htmlFor={ `${part}element-order-details-label-delivery-status-${id}` }
+      <Box
+        sx={ {
+          width: '100vw',
+          display: 'flex',
+          justifyContent: 'space-around',
+          alignItems: 'center',
+          flexDirection: 'row',
+          marginTop: '20px',
+        } }
+      >
+        <Typography
+          data-testid={ `${part}element-order-details-label-order-id` }
+          sx={ { fontSize: '1.2em' } }
         >
-          Status:
-          <p
-            id={ `${part}element-order-details-label-delivery-status-${id}` }
-            data-testid={ `${part}element-order-details-label-delivery-status-${id}` }
-          >
-            {ordersDetails.status}
-          </p>
-        </label>
+          {`Pedido: ${id} `}
+        </Typography>
+        <Typography
+          id={ `${part}element-order-details-label-seller-name` }
+          data-testid={ `${part}element-order-details-label-seller-name` }
+          sx={ { fontSize: '1.2em' } }
+        >
+          {`Vendedor: ${ordersDetails.seller}`}
+        </Typography>
+        <Typography
+          data-testid={ `${part}element-order-details-label-order-date` }
+          sx={ { fontSize: '1.2em' } }
+        >
+          {`Data do pedido: 
+          ${ordersDetails.saleDate && formatDate(ordersDetails.saleDate)}`}
+        </Typography>
+        <Typography
+          id={ `${part}element-order-details-label-delivery-status-${id}` }
+          data-testid={ `${part}element-order-details-label-delivery-status-${id}` }
+          sx={ { fontSize: '1.2em' } }
+        >
+          {`Status: ${ordersDetails.status}`}
+        </Typography>
         { page === 'customer'
           ? (
-            <button
+            <Button
               type="button"
               data-testid={ `${part}button-delivery-check` }
               disabled={ ordersDetails.status !== 'Em Trânsito' }
+              variant="outlined"
               onClick={ () => updateStatus('Entregue') }
+              background={ ordersDetails.status === 'Pendente' ? 'gray' : 'blue' }
             >
               MARCAR COMO ENTREGUE
-            </button>)
+            </Button>)
           : (
             <>
-              <button
+              <Button
                 type="button"
                 data-testid={ `${part}button-preparing-check` }
                 disabled={ ordersDetails.status !== 'Pendente' }
                 onClick={ () => updateStatus('Preparando') }
               >
                 PREPARAR PEDIDO
-              </button>
-              <button
+              </Button>
+              <Button
                 type="button"
                 data-testid={ `${part}button-dispatch-check` }
                 disabled={ ordersDetails.status !== 'Preparando' }
@@ -107,57 +123,78 @@ function OrderDetailsTable() {
 
               >
                 SAIU PARA ENTREGA
-              </button>
+              </Button>
             </>
           )}
-      </div>
-      <table>
-        <thead>
-          <tr>
-            {fields.map((field) => (
-              <th key={ field }>{field}</th>
+      </Box>
+      <TableContainer
+        sx={ {
+          marginTop: '100px',
+        } }
+      >
+        <Table sx={ { minWidth: '400px' } }>
+          <TableHead>
+            <TableRow>
+              {fields.map((field) => (
+                <TableCell key={ field } sx={ { fontSize: '1.3em' } }>{field}</TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {products.map(({ name, quantity, price, subTotal }, i) => (
+              <TableRow key={ i }>
+                <TableCell
+                  data-testid={ `${part}element-order-table-item-number-${id}` }
+                  sx={ { fontSize: '1.3em' } }
+                >
+                  {i + 1}
+                </TableCell>
+                <TableCell
+                  data-testid={ `${part}element-order-table-name-${id}` }
+                  sx={ { fontSize: '1.3em' } }
+                >
+                  {name}
+                </TableCell>
+                <TableCell
+                  data-testid={ `${part}element-order-table-quantity-${id}` }
+                  sx={ { fontSize: '1.3em' } }
+                >
+                  {quantity}
+                </TableCell>
+                <TableCell
+                  data-testid={ `${part}element-order-table-unit-price-${id}` }
+                  sx={ { fontSize: '1.3em' } }
+                >
+                  {price}
+                </TableCell>
+                <TableCell
+                  data-testid={ `${part}element-order-table-sub-total-${id}` }
+                  sx={ { fontSize: '1.3em' } }
+                >
+                  {subTotal}
+                </TableCell>
+              </TableRow>
             ))}
-          </tr>
-        </thead>
-        <tbody>
-          {products.map(({ name, quantity, price, subTotal }, i) => (
-            <tr key={ i }>
-              <td
-                data-testid={ `${part}element-order-table-item-number-${id}` }
-              >
-                {i + 1}
-              </td>
-              <td data-testid={ `${part}element-order-table-name-${id}` }>
-                {name}
-              </td>
-              <td data-testid={ `${part}element-order-table-quantity-${id}` }>
-                {quantity}
-              </td>
-              <td
-                data-testid={ `${part}element-order-table-unit-price-${id}` }
-              >
-                {price}
-              </td>
-              <td
-                data-testid={ `${part}element-order-table-sub-total-${id}` }
-              >
-                {subTotal}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <div>
-        <label htmlFor={ `${part}element-order-total-price` }>
-          TOTAL:
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Box
+        textAlign="center"
+        sx={ {
+          fontSize: '1.3em',
+          marginTop: '10px',
+        } }
+      >
+        <Typography variant="h5">
+          Total:
           <span
             id={ `${part}element-order-total-price` }
             data-testid={ `${part}element-order-total-price` }
           >
-            { ordersDetails.totalPrice }
+            {` ${ordersDetails.totalPrice}`}
           </span>
-        </label>
-      </div>
+        </Typography>
+      </Box>
     </div>
   );
 }
