@@ -6,7 +6,6 @@ import { Button,
   InputLabel,
   MenuItem,
   Select,
-  Stack,
   Table,
   TableBody,
   TableCell,
@@ -177,106 +176,103 @@ function Checkout() {
       <Typography
         variant="h4"
         textAlign="center"
+        sx={ {
+          marginBottom: '70px',
+        } }
       >
         Detalhes e Endereço para entrega
       </Typography>
-      <Stack
+      <FormGroup
         sx={ {
+          width: '100vw',
           display: 'flex',
-          justifyContent: 'space-between',
+          justifyContent: 'space-around',
           alignItems: 'center',
-          flexWrap: 'nowrap',
           flexDirection: 'row',
+          alignSelf: '',
         } }
       >
-        <FormGroup
-          onSubmit={ handleSubmit }
-          sx={ {
-            width: '100vw',
+        <InputLabel
+          htmlFor="selectSeller"
+          sx={ { fontSize: '1.5em',
             display: 'flex',
+            color: 'black',
+            marginLeft: '5px',
+            justifyContent: '',
           } }
         >
-          <InputLabel
-            htmlFor="selectSeller"
-            sx={ { fontSize: '1.3em',
-              display: 'flex',
-              color: 'black',
-              marginLeft: '5px',
-            } }
-          >
-            Vendedor
-            <Select
-              id="selectSeller"
-              name="sellerId"
-              onChange={ onSelectChange }
-              data-testid="customer_checkout__select-seller"
-              sx={ {
-                background: 'white',
-              } }
-            >
-              {
-                sellers.map(({ id, name }) => (
-                  <MenuItem
-                    key={ name }
-                    value={ id }
-                    sx={ { background: 'white' } }
-                  >
-                    {name}
-                  </MenuItem>))
-              }
-            </Select>
-          </InputLabel>
-          <InputLabel
-            htmlFor="address"
-            sx={ { fontSize: '1.3em',
-              display: 'flex',
-              color: 'black',
-              marginLeft: '5px' } }
-          >
-            Endereço
-            <TextField
-              id="address"
-              name="deliveryAddress"
-              onChange={ onInputChange }
-              type="text"
-              data-testid="customer_checkout__input-address"
-              sx={ {
-                background: 'white',
-              } }
-            />
-          </InputLabel>
-          <InputLabel
-            htmlFor="numberAddress"
-            sx={ { fontSize: '1.3em',
-              color: 'black',
-              marginLeft: '5px' } }
-          >
-            Número
-            <TextField
-              id="numberAddress"
-              name="deliveryNumber"
-              onChange={ onInputChange }
-              type="text"
-              data-testid="customer_checkout__input-address-number"
-              sx={ {
-                background: 'white',
-              } }
-            />
-          </InputLabel>
-          <Button
-            type="submit"
-            data-testid="customer_checkout__button-submit-order"
-            variant="outlined"
+          Vendedor
+          <Select
+            id="selectSeller"
+            name="sellerId"
+            onChange={ onSelectChange }
+            data-testid="customer_checkout__select-seller"
             sx={ {
-              background: '#181654',
-              color: 'white',
+              background: 'white',
             } }
           >
-            Finalizar Pedido
-          </Button>
-        </FormGroup>
-      </Stack>
-
+            {
+              sellers.map(({ id, name }) => (
+                <MenuItem
+                  key={ name }
+                  value={ id }
+                  sx={ { background: 'white' } }
+                >
+                  {name}
+                </MenuItem>))
+            }
+          </Select>
+        </InputLabel>
+        <InputLabel
+          htmlFor="address"
+          sx={ { fontSize: '1.5em',
+            display: 'flex',
+            color: 'black',
+            marginLeft: '5px' } }
+        >
+          Endereço
+          <TextField
+            id="address"
+            name="deliveryAddress"
+            onChange={ onInputChange }
+            type="text"
+            data-testid="customer_checkout__input-address"
+            sx={ {
+              background: 'white',
+            } }
+          />
+        </InputLabel>
+        <InputLabel
+          htmlFor="numberAddress"
+          sx={ { fontSize: '1.5em',
+            color: 'black',
+            marginLeft: '5px' } }
+        >
+          Número
+          <TextField
+            id="numberAddress"
+            name="deliveryNumber"
+            onChange={ onInputChange }
+            type="text"
+            data-testid="customer_checkout__input-address-number"
+            sx={ {
+              background: 'white',
+            } }
+          />
+        </InputLabel>
+        <Button
+          type="submit"
+          data-testid="customer_checkout__button-submit-order"
+          variant="outlined"
+          onClick={ handleSubmit }
+          sx={ {
+            background: '#181654',
+            color: 'white',
+          } }
+        >
+          Finalizar Pedido
+        </Button>
+      </FormGroup>
     </main>
   );
 }
