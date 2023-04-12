@@ -79,17 +79,18 @@ function ProductCard({ id, price, urlImage, name }) {
 
       <div>
         <Button
-          onClick={ handleAddOne }
+          onClick={ handleRemoveOne }
           type="button"
-          data-testid={ `customer_products__button-card-add-item-${id}` }
+          data-testid={ `customer_products__button-card-rm-item-${id}` }
           variant="outlined"
           sx={ {
             height: '56px',
             fontSize: '2em',
-            background: '#FBAA10',
+            background: '#181654',
+            color: 'white',
           } }
         >
-          +
+          -
         </Button>
 
         <TextField
@@ -99,22 +100,22 @@ function ProductCard({ id, price, urlImage, name }) {
           data-testid={ `customer_products__input-card-quantity-${id}` }
           sx={ {
             fontSize: '2em',
-            background: '#FBAA10',
+            background: '#BB8220',
           } }
         />
-
         <Button
-          onClick={ handleRemoveOne }
+          onClick={ handleAddOne }
           type="button"
-          data-testid={ `customer_products__button-card-rm-item-${id}` }
+          data-testid={ `customer_products__button-card-add-item-${id}` }
           variant="outlined"
           sx={ {
             height: '56px',
             fontSize: '2em',
-            background: '#FBAA10',
+            background: '#181654',
+            color: 'white',
           } }
         >
-          -
+          +
         </Button>
       </div>
     </Card>

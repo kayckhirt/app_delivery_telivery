@@ -2,7 +2,16 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 
-import { Box, Button, Typography, TableContainer, Table } from '@mui/material';
+import { Box,
+  Button,
+  Typography,
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+} from '@mui/material';
 import api from '../services/api';
 import formatDate from '../utils/formatDate';
 
@@ -54,43 +63,36 @@ function OrderDetailsTable() {
           justifyContent: 'space-around',
           alignItems: 'center',
           flexDirection: 'row',
-          alignSelf: '',
+          marginTop: '20px',
         } }
       >
-        <label htmlFor={ `${part}element-user-table-item-number-${id}` }>
-          Pedido:
-          <Typography
-            data-testid={ `${part}element-order-details-label-order-id` }
-          >
-            {id}
-          </Typography>
-        </label>
-        <label htmlFor={ `${part}element-order-details-label-seller-name` }>
-          Vendedor:
-          <Typography
-            id={ `${part}element-order-details-label-seller-name` }
-            data-testid={ `${part}element-order-details-label-seller-name` }
-          >
-            {ordersDetails.seller}
-          </Typography>
-        </label>
-        <label htmlFor={ `${part}element-order-details-label-order-date` }>
-          Data do pedido:
-          <Typography data-testid={ `${part}element-order-details-label-order-date` }>
-            {ordersDetails.saleDate && formatDate(ordersDetails.saleDate)}
-          </Typography>
-        </label>
-        <label
-          htmlFor={ `${part}element-order-details-label-delivery-status-${id}` }
+        <Typography
+          data-testid={ `${part}element-order-details-label-order-id` }
+          sx={ { fontSize: '1.2em' } }
         >
-          Status:
-          <Typography
-            id={ `${part}element-order-details-label-delivery-status-${id}` }
-            data-testid={ `${part}element-order-details-label-delivery-status-${id}` }
-          >
-            {ordersDetails.status}
-          </Typography>
-        </label>
+          {`Pedido: ${id} `}
+        </Typography>
+        <Typography
+          id={ `${part}element-order-details-label-seller-name` }
+          data-testid={ `${part}element-order-details-label-seller-name` }
+          sx={ { fontSize: '1.2em' } }
+        >
+          {`Vendedor: ${ordersDetails.seller}`}
+        </Typography>
+        <Typography
+          data-testid={ `${part}element-order-details-label-order-date` }
+          sx={ { fontSize: '1.2em' } }
+        >
+          {`Data do pedido: 
+          ${ordersDetails.saleDate && formatDate(ordersDetails.saleDate)}`}
+        </Typography>
+        <Typography
+          id={ `${part}element-order-details-label-delivery-status-${id}` }
+          data-testid={ `${part}element-order-details-label-delivery-status-${id}` }
+          sx={ { fontSize: '1.2em' } }
+        >
+          {`Status: ${ordersDetails.status}`}
+        </Typography>
         { page === 'customer'
           ? (
             <Button
@@ -125,55 +127,74 @@ function OrderDetailsTable() {
             </>
           )}
       </Box>
-      <TableContainer>
-        <Table>
-          <thead>
-            <tr>
+      <TableContainer
+        sx={ {
+          marginTop: '100px',
+        } }
+      >
+        <Table sx={ { minWidth: '400px' } }>
+          <TableHead>
+            <TableRow>
               {fields.map((field) => (
-                <th key={ field }>{field}</th>
+                <TableCell key={ field } sx={ { fontSize: '1.3em' } }>{field}</TableCell>
               ))}
-            </tr>
-          </thead>
-          <tbody>
+            </TableRow>
+          </TableHead>
+          <TableBody>
             {products.map(({ name, quantity, price, subTotal }, i) => (
-              <tr key={ i }>
-                <td
+              <TableRow key={ i }>
+                <TableCell
                   data-testid={ `${part}element-order-table-item-number-${id}` }
+                  sx={ { fontSize: '1.3em' } }
                 >
                   {i + 1}
-                </td>
-                <td data-testid={ `${part}element-order-table-name-${id}` }>
+                </TableCell>
+                <TableCell
+                  data-testid={ `${part}element-order-table-name-${id}` }
+                  sx={ { fontSize: '1.3em' } }
+                >
                   {name}
-                </td>
-                <td data-testid={ `${part}element-order-table-quantity-${id}` }>
+                </TableCell>
+                <TableCell
+                  data-testid={ `${part}element-order-table-quantity-${id}` }
+                  sx={ { fontSize: '1.3em' } }
+                >
                   {quantity}
-                </td>
-                <td
+                </TableCell>
+                <TableCell
                   data-testid={ `${part}element-order-table-unit-price-${id}` }
+                  sx={ { fontSize: '1.3em' } }
                 >
                   {price}
-                </td>
-                <td
+                </TableCell>
+                <TableCell
                   data-testid={ `${part}element-order-table-sub-total-${id}` }
+                  sx={ { fontSize: '1.3em' } }
                 >
                   {subTotal}
-                </td>
-              </tr>
+                </TableCell>
+              </TableRow>
             ))}
-          </tbody>
+          </TableBody>
         </Table>
-        <div>
-          <label htmlFor={ `${part}element-order-total-price` }>
-            TOTAL:
-            <span
-              id={ `${part}element-order-total-price` }
-              data-testid={ `${part}element-order-total-price` }
-            >
-              { ordersDetails.totalPrice }
-            </span>
-          </label>
-        </div>
       </TableContainer>
+      <Box
+        textAlign="center"
+        sx={ {
+          fontSize: '1.3em',
+          marginTop: '10px',
+        } }
+      >
+        <Typography variant="h5">
+          Total:
+          <span
+            id={ `${part}element-order-total-price` }
+            data-testid={ `${part}element-order-total-price` }
+          >
+            {` ${ordersDetails.totalPrice}`}
+          </span>
+        </Typography>
+      </Box>
     </div>
   );
 }

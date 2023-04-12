@@ -54,46 +54,60 @@ function NavBar() {
         minHeight: '10vh',
         width: '100%',
         bgcolor: '#BB8220',
+        paddingLeft: '20px',
       } }
     >
       <img src={ logo } alt='logo do app "O trago da velha"' width="100px" />
-      <Button
-        data-testid="customer_products__element-navbar-link-products"
-        type="button"
-        onClick={ products }
-        variant="contained"
+      <Box
         sx={ {
-          width: {
-            xs: '40px',
-            md: '100px',
-          },
+          display: 'flex',
+          justifyContent: 'space-around',
+          alignItems: 'center',
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          minHeight: '10vh',
+          width: '100%',
+          bgcolor: '#BB8220',
         } }
       >
-        Produtos
-      </Button>
-      <Button
-        data-testid="customer_products__element-navbar-link-orders"
-        type="button"
-        onClick={ myOrders }
-        variant="contained"
-      >
-        Meus Pedidos
-      </Button>
-      <Button
-        data-testid="customer_products__element-navbar-user-full-name"
-        type="button"
-        variant="contained"
-      >
-        {user}
-      </Button>
-      <Button
-        data-testid="customer_products__element-navbar-link-logout"
-        type="button"
-        onClick={ logout }
-        variant="contained"
-      >
-        Sair
-      </Button>
+        <Button
+          data-testid="customer_products__element-navbar-link-products"
+          type="button"
+          onClick={ products }
+          variant="contained"
+          sx={ {
+            width: {
+              xs: '40px',
+              md: '100px',
+            },
+          } }
+        >
+          Produtos
+        </Button>
+        <Button
+          data-testid="customer_products__element-navbar-link-orders"
+          type="button"
+          onClick={ myOrders }
+          variant="contained"
+        >
+          Meus Pedidos
+        </Button>
+        <Button
+          data-testid="customer_products__element-navbar-user-full-name"
+          type="button"
+          variant="contained"
+        >
+          {user}
+        </Button>
+        <Button
+          data-testid="customer_products__element-navbar-link-logout"
+          type="button"
+          onClick={ logout }
+          variant="contained"
+        >
+          Sair
+        </Button>
+      </Box>
     </Box>
   );
 }

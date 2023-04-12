@@ -1,3 +1,6 @@
+import { Button, FormGroup,
+  InputLabel, MenuItem, Select, TextField,
+} from '@mui/material';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -10,11 +13,25 @@ function RegisterUserForm(
   },
 ) {
   return (
-    <form>
-      <label htmlFor="name">
+    <FormGroup
+      sx={ {
+        width: '100vw',
+        display: 'flex',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        flexDirection: 'row',
+        alignSelf: '',
+      } }
+    >
+      <InputLabel
+        htmlFor="name"
+        sx={ { fontSize: '1.5em',
+          display: 'flex',
+          color: 'black',
+          marginLeft: '5px' } }
+      >
         Nome:
-        {' '}
-        <input
+        <TextField
           type="text"
           id="name"
           data-testid="admin_manage__input-name"
@@ -22,12 +39,20 @@ function RegisterUserForm(
           placeholder="Nome..."
           value={ name }
           onChange={ onInputChange }
+          sx={ {
+            background: 'white',
+          } }
         />
-      </label>
-      <label htmlFor="email">
+      </InputLabel>
+      <InputLabel
+        htmlFor="email"
+        sx={ { fontSize: '1.5em',
+          display: 'flex',
+          color: 'black',
+          marginLeft: '5px' } }
+      >
         Email:
-        {' '}
-        <input
+        <TextField
           type="email"
           id="email"
           data-testid="admin_manage__input-email"
@@ -35,12 +60,21 @@ function RegisterUserForm(
           placeholder="Email..."
           value={ email }
           onChange={ onInputChange }
+          sx={ {
+            background: 'white',
+          } }
         />
-      </label>
-      <label htmlFor="password">
+      </InputLabel>
+      <InputLabel
+        htmlFor="password"
+        sx={ { fontSize: '1.5em',
+          display: 'flex',
+          color: 'black',
+          marginLeft: '5px' } }
+      >
         Senha:
         {' '}
-        <input
+        <TextField
           type="password"
           id="password"
           data-testid="admin_manage__input-password"
@@ -48,31 +82,56 @@ function RegisterUserForm(
           placeholder="Password..."
           value={ password }
           onChange={ onInputChange }
+          sx={ {
+            background: 'white',
+          } }
         />
-      </label>
-      <label htmlFor="select-type">
+      </InputLabel>
+      <InputLabel
+        id="select-type"
+        htmlFor="select-type"
+        sx={ { fontSize: '1.5em',
+          display: 'flex',
+          color: 'black',
+          marginLeft: '5px' } }
+      >
         Tipo:
         {' '}
-        <select
+        <Select
           name="role"
           id="select-type"
           data-testid="admin_manage__select-role"
           onChange={ onInputChange }
+          sx={ {
+            background: 'white',
+          } }
         >
-          <option value="customer">Cliente</option>
-          <option value="seller">Vendedor</option>
-          <option value="administrator">Administrador</option>
-        </select>
-      </label>
-      <button
+          <MenuItem value="customer" sx={ { background: 'white' } }>
+            Cliente
+          </MenuItem>
+          <MenuItem value="seller" sx={ { background: 'white' } }>
+            Vendedor
+          </MenuItem>
+          <MenuItem value="administrator" sx={ { background: 'white' } }>
+            Administrador
+          </MenuItem>
+        </Select>
+      </InputLabel>
+      <Button
         data-testid="admin_manage__button-register"
         type="button"
         disabled={ btnIsDisabled }
         onClick={ handleRegisterBtn }
+        variant="contained"
+        sx={ {
+          background: '#181654',
+          color: '#FFFFFF',
+          padding: '15px',
+        } }
       >
         CADASTRAR
-      </button>
-    </form>
+      </Button>
+    </FormGroup>
   );
 }
 
