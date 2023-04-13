@@ -99,7 +99,7 @@ function OrderDetailsTable() {
               type="button"
               data-testid={ `${part}button-delivery-check` }
               disabled={ ordersDetails.status !== 'Em Trânsito' }
-              variant="outlined"
+              variant="contained"
               onClick={ () => updateStatus('Entregue') }
               background={ ordersDetails.status === 'Pendente' ? 'gray' : 'blue' }
             >
@@ -112,6 +112,7 @@ function OrderDetailsTable() {
                 data-testid={ `${part}button-preparing-check` }
                 disabled={ ordersDetails.status !== 'Pendente' }
                 onClick={ () => updateStatus('Preparando') }
+                variant="contained"
               >
                 PREPARAR PEDIDO
               </Button>
@@ -120,7 +121,7 @@ function OrderDetailsTable() {
                 data-testid={ `${part}button-dispatch-check` }
                 disabled={ ordersDetails.status !== 'Preparando' }
                 onClick={ () => updateStatus('Em Trânsito') }
-
+                variant="contained"
               >
                 SAIU PARA ENTREGA
               </Button>
