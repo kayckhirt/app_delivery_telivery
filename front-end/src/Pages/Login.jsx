@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Box, Typography } from '@mui/material';
+import { Box, Paper, Typography } from '@mui/material';
 import CommonForm from '../Components/CommonForm';
 import api from '../services/api';
 import { getToken, saveToken } from '../utils/localStorage';
@@ -57,7 +57,7 @@ function Login() {
         isLogin ? '/login' : '/register',
         { email, password, name, role: 'customer' },
       );
-      saveToken(isLogin ? data : { email, password, name, role: 'customer' });
+      saveToken(data);
       setFormData({ email: '', password: '', name: '' });
       setBtnIsDisabled(true);
       const { role } = data;
@@ -84,37 +84,48 @@ function Login() {
   return (
     <Box
       sx={ { display: 'flex',
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',
         minHeight: '100vh',
         width: '100%',
       } }
     >
-      <img src={ logo } alt='logo do app "Têlivery"' width="250px" />
-      <Typography
+      <Paper
+        elevation={ 5 }
         sx={ {
-          fontSize: {
-            xs: '4em',
-            md: '7em',
-          },
-          fontFamily: 'Chakra Petch',
+          bgcolor: '#F4F4F4',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          px: 4,
+          py: 4,
         } }
-        gutterBottom
-        color="#000000"
       >
-        Têlivery
+        <img src={ logo } alt='logo do app "Têlivery"' width="250px" />
+        <Typography
+          variant="h2"
+          color="primary"
+          sx={ {
+            fontFamily: 'Chakra Petch',
+          } }
+          gutterBottom
+        >
+          Têlivery
 
-      </Typography>
-      <CommonForm
-        formData={ formData }
-        // setFormData={ setFormData }
-        onInputChange={ onInputChange }
-        isNotFound={ isNotFound }
-        isLogin={ isLogin }
-        btnIsDisabled={ btnIsDisabled }
-        handleLoginButton={ handleLoginButton }
-      />
+        </Typography>
+        <CommonForm
+          formData={ formData }
+          // setFormData={ setFormData }
+          onInputChange={ onInputChange }
+          isNotFound={ isNotFound }
+          isLogin={ isLogin }
+          btnIsDisabled={ btnIsDisabled }
+          handleLoginButton={ handleLoginButton }
+          setisLogin={ setisLogin }
+        />
+      </Paper>
     </Box>
   );
 }

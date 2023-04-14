@@ -5,7 +5,7 @@ import { ThemeProvider } from '@emotion/react';
 import AppProvider from './Context/AppProvider';
 import CartProvider from './Context/CartProvider';
 import Routes from './Routes/Routes';
-import theme from './Mui/AppTheme';
+import theme from './theme/AppTheme';
 
 function App() {
   return (

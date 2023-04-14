@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
-import { Box, Button, Link, Typography } from '@mui/material';
+import { Box, Button, Link, Stack, Typography } from '@mui/material';
 import React from 'react';
 import formatDate from '../utils/formatDate';
 
@@ -31,37 +31,38 @@ function OrdersCard({
             xs: '95%',
             md: '60%',
           },
-          margin: '6px',
+          p: 1,
+          mb: 1,
           display: 'flex',
-          justifyContent: 'space-around',
+          justifyContent: 'space-between',
           alignItems: 'center',
           flexDirection: 'row',
+          textAlign: 'center',
         } }
       >
         <Typography data-testid={ `${page}_orders__element-order-id-${id}` }>
           {`Pedido: ${id} `}
         </Typography>
-        <Typography
-          data-testid={ `${page}_orders__element-order-date-${id}` }
-        >
-          {` Data do pedido: ${formatDate(saleDate)}`}
-        </Typography>
+        <Stack>
 
-        <Typography data-testid={ `${page}_orders__element-card-price-${id}` }>
-          {`R$: ${totalPrice.replace('.', ',')}`}
-        </Typography>
-        {page === 'seller' ? <p>{`${deliveryAddress}, ${deliveryNumber}`}</p> : null}
+          <Typography
+            data-testid={ `${page}_orders__element-order-date-${id}` }
+          >
+            {` Data do pedido: ${formatDate(saleDate)}`}
+          </Typography>
+{/* 
+          <Typography data-testid={ `${page}_orders__element-card-price-${id}` }>
+            {`R$: ${totalPrice.replace('.', ',')}`}
+          </Typography> */}
+          {page === 'seller' ? <p>{`${deliveryAddress}, ${deliveryNumber}`}</p> : null}
+        </Stack>
         <Link
           href={ `/${page}/orders/${id}` }
           underline="none"
         >
           <Button
             data-testid={ `${page}_orders__element-delivery-status-${id}` }
-            sx={ {
-              background: '#181654',
-              color: 'white',
-              marginLeft: '20px',
-            } }
+            variant="contained"
           >
             {status}
           </Button>

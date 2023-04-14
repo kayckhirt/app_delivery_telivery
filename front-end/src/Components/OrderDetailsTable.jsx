@@ -58,7 +58,6 @@ function OrderDetailsTable() {
     <div>
       <Box
         sx={ {
-          width: '100vw',
           display: 'flex',
           justifyContent: 'space-around',
           alignItems: 'center',

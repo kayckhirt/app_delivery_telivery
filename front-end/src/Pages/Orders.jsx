@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { Box, Container } from '@mui/material';
 import NavBar from '../Components/NavBar';
 import { getToken } from '../utils/localStorage';
 import OrdersCard from '../Components/OrdersCard';
@@ -24,30 +25,44 @@ function Orders() {
     getOrders();
   }, [getOrders]);
   return (
-    <div>
+    <Container
+      sx={ {
+        width: '100%',
+        minHeight: '100vh' } }
+    >
       <NavBar />
-      {
-        orders.map(({
-          id,
-          status,
-          saleDate,
-          totalPrice,
-          deliveryAddress,
-          deliveryNumber,
-        }) => (
-          <OrdersCard
-            key={ id }
-            id={ id }
-            status={ status }
-            saleDate={ saleDate }
-            totalPrice={ totalPrice }
-            deliveryAddress={ deliveryAddress }
-            deliveryNumber={ deliveryNumber }
-          />
-        ))
-      }
-      {}
-    </div>
+      <Box
+        sx={ {
+          width: '100%',
+          minHeight: '90vh',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+
+        } }
+      >
+        {
+          orders.map(({
+            id,
+            status,
+            saleDate,
+            totalPrice,
+            deliveryAddress,
+            deliveryNumber,
+          }) => (
+            <OrdersCard
+              key={ id }
+              id={ id }
+              status={ status }
+              saleDate={ saleDate }
+              totalPrice={ totalPrice }
+              deliveryAddress={ deliveryAddress }
+              deliveryNumber={ deliveryNumber }
+            />
+          ))
+        }
+      </Box>
+    </Container>
   );
 }
 export default Orders;

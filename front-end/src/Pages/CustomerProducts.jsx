@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Box, Button, Typography } from '@mui/material';
+import { Container, Fab, Grid, Typography } from '@mui/material';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Loading from '../Components/Loading';
 import NavBar from '../Components/NavBar';
 import ProductCard from '../Components/ProductCard';
@@ -17,7 +18,8 @@ function CustomerProducts() {
   };
 
   return (
-    <>
+    <Container sx={ { mb: 4 } }>
+
       <NavBar />
       <Typography
         sx={ {
@@ -25,58 +27,22 @@ function CustomerProducts() {
             xs: '2em',
             md: '3em',
           },
-          fontFamily: 'Chakra Petch',
         } }
         gutterBottom
-        color="#000000"
         textAlign="center"
       >
         Produtos
 
       </Typography>
-      <Box
-        sx={ {
-          position: {
-            xs: 'static',
-            md: 'static',
-          },
-          left: {
-            xs: '0%',
-            md: '80%',
-          },
-        } }
-      >
-        <Button
-          disabled={ totalCartValue === 0 }
-          onClick={ handleRedirect }
-          type="button"
-          data-testid="customer_products__button-cart"
-          variant="contained"
-        >
-          {`Ver Carrinho: ${totalCartValue.toFixed(2).replace('.', ',')}`}
-        </Button>
-      </Box>
-      <Box
-        sx={ {
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          background: '#FBAA10',
-        } }
-      >
+
+      <Grid container spacing={ 2 }>
+
         {products.map(({ id, urlImage, price, name }) => (
-          <Box
-            key="true"
-            sx={ {
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-              padding: '3px',
-            } }
+          <Grid
+            item
+            xs={ 6 }
+            md={ 3 }
+            key={ id }
           >
             <ProductCard
               key={ `${name}${id}` }
@@ -85,9 +51,33 @@ function CustomerProducts() {
               name={ name }
               price={ price }
             />
-          </Box>))}
-      </Box>
-    </>
+          </Grid>))}
+
+      </Grid>
+      <Fab
+        color="primary"
+        variant="extended"
+        disabled={ totalCartValue === 0 }
+        onClick={ handleRedirect }
+        data-testid="customer_products__button-cart"
+        sx={ {
+          margin: 0,
+          top: 'auto',
+          right: 20,
+          bottom: 20,
+          left: 'auto',
+          position: 'fixed',
+          '&:hover': {
+            transform: 'scale(1.15)',
+          },
+        } }
+      >
+        <ShoppingCartIcon />
+        {totalCartValue
+          .toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+      </Fab>
+    </Container>
+
   );
 }
 export default CustomerProducts;

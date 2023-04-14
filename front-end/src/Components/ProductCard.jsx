@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Card, TextField, Typography } from '@mui/material';
+import { Box, IconButton, Paper, Stack, TextField, Typography } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 import CartContext from '../Context/CartContext';
 
 function ProductCard({ id, price, urlImage, name }) {
@@ -41,35 +43,19 @@ function ProductCard({ id, price, urlImage, name }) {
   }, [getQuantity, id]);
 
   return (
-    <Card
-      sx={ {
-        background: 'white',
-        padding: '2px',
-        color: 'black',
-        fontWeight: 'bold',
-        textAlign: 'center',
-        boxShadow: '1px 1px 3px black',
-      } }
+    <Paper
+      elevation={ 5 }
+      component={ Stack }
+      spacing={ 1 }
+      justifyContent="space-between"
+      alignItems="center"
+      p={ 2 }
+      minHeight="300px"
+      sx={ { textAlign: 'center' } }
     >
-      <img
-        width={ 100 }
-        height={ 100 }
-        data-testid={ `customer_products__img-card-bg-image-${id}` }
-        src={ urlImage }
-        alt="product_image"
-      />
-      <Typography
-        data-testid={ `customer_products__element-card-price-${id}` }
-        variant="h6"
-        sx={ {
-          fontWeight: 'bold',
-        } }
-      >
-        {`R$ ${price.replace('.', ',')}`}
-      </Typography>
       <Typography
         data-testid={ `customer_products__element-card-title-${id}` }
-        variant="h6"
+        variant="body1"
         sx={ {
           fontWeight: 'bold',
         } }
@@ -77,48 +63,53 @@ function ProductCard({ id, price, urlImage, name }) {
         {name}
       </Typography>
 
-      <div>
-        <Button
+      <Box
+        component="img"
+        data-testid={ `customer_products__img-card-bg-image-${id}` }
+        src={ urlImage }
+        alt="product_image"
+        sx={ { maxHeight: '100px', maxWidth: '100px' } }
+      />
+      <Typography
+        data-testid={ `customer_products__element-card-price-${id}` }
+        variant="body1"
+        sx={ {
+          fontWeight: 'bold',
+        } }
+      >
+        {Number(price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+      </Typography>
+
+      <Stack direction="row">
+        <IconButton
           onClick={ handleRemoveOne }
           type="button"
           data-testid={ `customer_products__button-card-rm-item-${id}` }
-          variant="outlined"
-          sx={ {
-            height: '56px',
-            fontSize: '2em',
-            background: '#181654',
-            color: 'white',
-          } }
+          color="secondary"
         >
-          -
-        </Button>
+          <RemoveIcon />
+
+        </IconButton>
 
         <TextField
           onChange={ handleInput }
-          name={ id }
+          name={ `${id}` }
+          size="small"
+          inputProps={ { style: { textAlign: 'center' } } }
           value={ localQuantity }
           data-testid={ `customer_products__input-card-quantity-${id}` }
-          sx={ {
-            fontSize: '2em',
-            background: '#BB8220',
-          } }
+          color="secondary"
         />
-        <Button
+        <IconButton
           onClick={ handleAddOne }
           type="button"
           data-testid={ `customer_products__button-card-add-item-${id}` }
-          variant="outlined"
-          sx={ {
-            height: '56px',
-            fontSize: '2em',
-            background: '#181654',
-            color: 'white',
-          } }
+          color="secondary"
         >
-          +
-        </Button>
-      </div>
-    </Card>
+          <AddIcon />
+        </IconButton>
+      </Stack>
+    </Paper>
   );
 }
 

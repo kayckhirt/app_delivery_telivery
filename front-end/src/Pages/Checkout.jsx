@@ -2,10 +2,13 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button,
-  FormGroup,
+  Container,
+  FormControl,
+  IconButton,
   InputLabel,
   MenuItem,
   Select,
+  Stack,
   Table,
   TableBody,
   TableCell,
@@ -14,6 +17,7 @@ import { Button,
   TableRow,
   TextField,
   Typography } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import useForm from '../Hooks/UseForm';
 import NavBar from '../Components/NavBar';
 import CartContext from '../Context/CartContext';
@@ -29,13 +33,18 @@ const fields = [
   'Remover Item',
 ];
 
+const defaultValues = {
+  sellerId: 2,
+  deliveryAddress: '',
+  deliveryNumber: '',
+};
+
 function Checkout() {
   const history = useHistory();
   const { totalCartValue, removeProduct } = useContext(CartContext);
-  const { formData, onInputChange, onSelectChange } = useForm(
-    { sellerId: 2, deliveryAddress: '', deliveryNumber: '' },
-  );
+  const { formData, onInputChange, onSelectChange } = useForm(defaultValues);
   const [sellers, setSellers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -56,10 +65,13 @@ function Checkout() {
 
   const fetchSellers = useCallback(async () => {
     try {
+      setIsLoading(true);
       const { data } = await api.get('/users/sellers');
       setSellers(data);
     } catch (err) {
       console.error(err);
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 
@@ -71,7 +83,7 @@ function Checkout() {
 
   const productsOnCart = getCart();
   return (
-    <main>
+    <Container>
       <NavBar />
       <Typography
         variant="h3"
@@ -80,7 +92,7 @@ function Checkout() {
         Meu carrinho
       </Typography>
       <TableContainer>
-        <Table sx={ { minWidth: '400px' } }>
+        <Table>
           <TableHead>
             <TableRow>
               {fields.map((field) => (
@@ -139,7 +151,7 @@ function Checkout() {
                     {subTotal.toFixed(2).replace('.', ',')}
                   </TableCell>
                   <TableCell>
-                    <Button
+                    <IconButton
                       onClick={
                         () => (
                           handleRem({ productId, name, quantity, unitPrice, subTotal }))
@@ -147,15 +159,10 @@ function Checkout() {
                       data-testid={
                         `customer_checkout__element-order-table-remove-${id}`
                       }
-                      type="button"
-                      variant="outlined"
-                      sx={ {
-                        background: '#181654',
-                        color: 'white',
-                      } }
+                      color="primary"
                     >
-                      Remover
-                    </Button>
+                      <DeleteIcon />
+                    </IconButton>
                   </TableCell>
                 </TableRow>
               ))}
@@ -182,98 +189,69 @@ function Checkout() {
       >
         Detalhes e Endereço para entrega
       </Typography>
-      <FormGroup
-        sx={ {
-          width: '100vw',
-          display: 'flex',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-          flexDirection: 'row',
-          alignSelf: '',
-        } }
-      >
-        <InputLabel
-          htmlFor="selectSeller"
-          sx={ { fontSize: '1.5em',
-            display: 'flex',
-            color: 'black',
-            marginLeft: '5px',
-            justifyContent: '',
-          } }
+      {isLoading ? null : (
+        <Stack
+          sx={ { width: '100%' } }
+          justifyContent="space-around"
+          alignItems="center"
+          direction="row"
         >
-          Vendedor
-          <Select
-            id="selectSeller"
-            name="sellerId"
-            onChange={ onSelectChange }
-            data-testid="customer_checkout__select-seller"
-            sx={ {
-              background: 'white',
-            } }
-          >
-            {
-              sellers.map(({ id, name }) => (
-                <MenuItem
-                  key={ name }
-                  value={ id }
-                  sx={ { background: 'white' } }
-                >
-                  {name}
-                </MenuItem>))
-            }
-          </Select>
-        </InputLabel>
-        <InputLabel
-          htmlFor="address"
-          sx={ { fontSize: '1.5em',
-            display: 'flex',
-            color: 'black',
-            marginLeft: '5px' } }
-        >
-          Endereço
+
+          <FormControl sx={ { minWidth: '100px' } }>
+            <InputLabel>Vendedor</InputLabel>
+            <Select
+              autoWidth
+              label="Vendedor"
+              name="sellerId"
+              value={ formData.sellerId }
+              onChange={ onSelectChange }
+              data-testid="customer_checkout__select-seller"
+
+            >
+              {
+                sellers.map(({ id, name }) => (
+                  <MenuItem
+                    key={ name }
+                    value={ id }
+                    sx={ { background: 'white' } }
+                  >
+                    {name}
+                  </MenuItem>))
+              }
+            </Select>
+          </FormControl>
+
           <TextField
+            label="Endereço"
             id="address"
             name="deliveryAddress"
+            value={ formData.deliveryAddress }
             onChange={ onInputChange }
             type="text"
             data-testid="customer_checkout__input-address"
-            sx={ {
-              background: 'white',
-            } }
           />
-        </InputLabel>
-        <InputLabel
-          htmlFor="numberAddress"
-          sx={ { fontSize: '1.5em',
-            color: 'black',
-            marginLeft: '5px' } }
-        >
-          Número
+
           <TextField
+            label="Número"
             id="numberAddress"
             name="deliveryNumber"
+            value={ formData.deliveryNumber }
             onChange={ onInputChange }
             type="text"
             data-testid="customer_checkout__input-address-number"
-            sx={ {
-              background: 'white',
-            } }
           />
-        </InputLabel>
-        <Button
-          type="submit"
-          data-testid="customer_checkout__button-submit-order"
-          variant="outlined"
-          onClick={ handleSubmit }
-          sx={ {
-            background: '#181654',
-            color: 'white',
-          } }
-        >
-          Finalizar Pedido
-        </Button>
-      </FormGroup>
-    </main>
+          <Button
+            variant="contained"
+            type="submit"
+            data-testid="customer_checkout__button-submit-order"
+            onClick={ handleSubmit }
+          >
+            Finalizar Pedido
+          </Button>
+        </Stack>
+      ) }
+
+    </Container>
   );
 }
 export default Checkout;

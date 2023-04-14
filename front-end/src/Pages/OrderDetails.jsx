@@ -1,13 +1,14 @@
 import React from 'react';
+import { Container } from '@mui/material';
 import NavBar from '../Components/NavBar';
 import OrderDetailsTable from '../Components/OrderDetailsTable';
 
 function OrderDetails() {
   return (
-    <div>
+    <Container>
       <NavBar />
       <OrderDetailsTable />
-    </div>
+    </Container>
   );
 }
 
