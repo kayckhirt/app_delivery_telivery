@@ -26,5 +26,16 @@
 <ul>
 <li> Clone o repositório.
 <li> Entre na pasta
-<li> Dê o comando no terminal <code>npm run start </code>
+<li> Dê o comando no terminal <code>npm install</code>
+<li> Você precisa renomear o arquivo que está na pasta backend para .env.example para .env
+<li> Dê o comando no terminal <code> docker compose up </code> (Você precisa ter o docker instalado)
+<li> Dê o comando no terminal <code> npm run db:reset </code>
+<li> Dê o comando no terminal <code>npm start </code>
 <li> Entre no localhost indicado no terminal
+</ul>
+
+<strong>VENDEDOR:</strong><br> Email: zebirita@email.com <br>
+    SENHA: "$#zebirita#$" 
+<h3> A Senha é sem as asplas duplas!</h3>
+
+
