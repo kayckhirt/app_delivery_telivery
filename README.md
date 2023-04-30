@@ -1,13 +1,30 @@
-# :construction: README customizado em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto no qual você pode customizar e reutilizar todas as vezes que for executar o trybe-publisher.
+<h1> App de Delivery </h1>
+<p> Projeto Full-stack realizado em grupo no curso de Desenvolvimento Web Full-Stack pela Trybe.</p>
 
-Para deixá-lo com a sua cara, basta alterar o seguinte arquivo da sua máquina: ~/.student-repo-publisher/custom/_NEW_README.md
+<h2> Objetivo </h2>
+<p> Desenvolver um app de delivery para uma distribuidora de bebidas para dona Tereza.</p>
 
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+<h2>Grupo</h2>
+<ul><a href="https://github.com/arthur-debiasi">Arthur Debiasi </a></ul>
+<ul><a href="https://github.com/julio-silveira">Julio Silveira </a></ul>
+<ul><a href="https://github.com/Peterson-Paganelli">Peterson Paganelli </a></ul>
+
+<h2> Tecnologias utilizadas </h2>
+<ul>
+<li>JavaScript
+<li>React
+<li>MUI (Material ui)
+<li>NodeJs
+<li>Sequelize
+<li>Docker
+<li>MySQL
+<li>Jest
+<li>RTL
+</ul>
+
+<h2>Como rodar? </h2>
+<ul>
+<li> Clone o repositório.
+<li> Entre na pasta
+<li> Dê o comando no terminal <code>npm run start </code>
+<li> Entre no localhost indicado no terminal
