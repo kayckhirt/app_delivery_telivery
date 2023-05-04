@@ -8,7 +8,7 @@ function OrdersCard({
   id,
   status,
   saleDate,
-  totalPrice,
+  // totalPrice,
   deliveryAddress,
   deliveryNumber,
 }) {
@@ -50,7 +50,7 @@ function OrdersCard({
           >
             {` Data do pedido: ${formatDate(saleDate)}`}
           </Typography>
-{/* 
+          {/*
           <Typography data-testid={ `${page}_orders__element-card-price-${id}` }>
             {`R$: ${totalPrice.replace('.', ',')}`}
           </Typography> */}
