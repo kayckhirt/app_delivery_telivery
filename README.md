@@ -31,8 +31,8 @@
 <li> Dê o comando no terminal <code>npm install</code>
 <li> Você precisa renomear o arquivo que está na pasta backend para .env.example para .env
 <li> Dê o comando no terminal <code> docker compose up </code> (Você precisa ter o docker instalado)
-<li> Dê o comando no terminal <code> npm run db:reset </code>
-<li> Dê o comando no terminal <code>npm start </code>
+<li> Entre na pasta back-end, dê o comando no terminal <code> npm run db:reset </code>
+<li> Entre na pasta front-end dê o comando no terminal <code>npm start </code>
 <li> Entre no localhost indicado no terminal
 </ul>
 
