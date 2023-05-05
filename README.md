@@ -38,6 +38,6 @@
 
 <strong>VENDEDOR:</strong><br> Email: zebirita@email.com <br>
     SENHA: "$#zebirita#$" 
-<h3> A Senha é sem as asplas duplas!</h3>
+<h3> A Senha é sem as aspas duplas!</h3>
 
 
